@@ -1,17 +1,30 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Search {
+
+    public static List<String> steps = new ArrayList<>();
+
+    /**
+     * int value = 10
+     * int pos =
+    * binarySearch(sortedArray, value,0,sortedArray.length-1)
+    * */
 
     public static int binarySearch(int [] sortedArray, int value, int low, int high){
 
         //Caso base
         if (low > high) {
+            steps.add("No se encontró el valor " + value);
             return -1;
         }
 
         int mid = (low+high)/2;
 
         if (value == sortedArray[mid]){
+            steps.add("Valor encontrado en el indice " + mid);
             return mid;
         } else if (value < sortedArray[mid]) {
             return binarySearch(sortedArray, value, low, mid - 1);
