@@ -23,6 +23,9 @@ public class Search {
 
         int mid = (low+high)/2;
 
+        steps.add("Rango [" + low + " , " + high + " ] ----> mitad  = " + mid + " (sortedArray[mid] = " +
+                sortedArray[mid] + " )");
+
         if (value == sortedArray[mid]){
             steps.add("Valor encontrado en el indice " + mid);
             return mid;
