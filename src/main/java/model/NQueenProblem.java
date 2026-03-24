@@ -75,6 +75,22 @@ public class NQueenProblem {
             if (board[i][j] == 1) return false;
         }
 
+        //se comprueba el lado derecho de esta fila
+        for (int i = col + 1; i < board.length; i++) {
+            if (board[row][i] == 1) return false;
+        }
+
+        //se comprueba la diagonal superior derecha
+        for (int i = row, j = col; i >= 0 && j < board.length; i--, j++) {
+            if (board[i][j] == 1) return false;
+        }
+
+        //se comprueba la diagonal inferior derecha
+        for (int i = row, j = col; i < board.length && j <board.length; i++, j++) {
+            if (board[i][j] == 1) return false;
+        }
+
+
         return true; // Si llego aqui es seguro colocar la reina en esta posicion
     }
 
