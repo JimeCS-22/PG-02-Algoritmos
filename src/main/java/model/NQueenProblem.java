@@ -75,7 +75,7 @@ public class NQueenProblem {
             if (board[i][j] == 1) return false;
         }
 
-        return true; // es seguro colocar la reina en esta posicion
+        return true; // Si llego aqui es seguro colocar la reina en esta posicion
     }
 
 
