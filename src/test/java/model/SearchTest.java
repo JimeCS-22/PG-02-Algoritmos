@@ -17,13 +17,10 @@ class SearchTest {
         int pos = Search.binarySearch(sortedArray, value, 0, sortedArray.length - 1);
 
         System.out.println(Arrays.toString(sortedArray));
-        System.out.println("Pos: " + pos + "value:  " + value );
-        if (pos != -1) {
-            System.out.println("Valor encontrado en el índice: " + pos);
+        System.out.println("Pos: " + pos + " value:  " + value );
 
-        } else {
-            System.out.println("Valor no encontrado en el arreglo.");
-
+        for (String s : Search.steps) {
+            System.out.println(s);
         }
     }
 
