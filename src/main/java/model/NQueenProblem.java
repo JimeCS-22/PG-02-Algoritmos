@@ -13,7 +13,7 @@ public class NQueenProblem {
         int[][] board = new int[n][n];
 
         Random rand = new Random();
-        int startCol = rand.nextInt(n); // columna aleatoria
+        int startCol = rand.nextInt(n);
 
         if (placeQueens(board, startCol)) {
             result += printBoard(board);
@@ -40,21 +40,30 @@ public class NQueenProblem {
     }
 
     /*Metodo que permite colocar las reinas dentro del tablero*/
-    private boolean placeQueens(int[][] board, int queensPlaced) {
+    private boolean placeQueens(int[][] board, int col) {
 
-        if (queensPlaced == board.length) return true;
+        // Caso base
+        if (col >= board.length || col < 0) return true;
 
-        for (int col = 0; col < board.length; col++) {
-            for (int row = 0; row < board.length; row++) {
+        // Si ya hay reina en esta columna, saltarla
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][col] == 1) {
+                return placeQueens(board, col + 1);
+            }
+        }
 
-                if (board[row][col] == 0 && isSafe(board, row, col)) {
+        for (int row = 0; row < board.length; row++) {
 
-                    board[row][col] = 1;
+            if (isSafe(board, row, col)) {
 
-                    if (placeQueens(board, queensPlaced + 1)) return true;
+                board[row][col] = 1;
 
-                    board[row][col] = 0;
+                // intentar derecha e izquierda
+                if (placeQueens(board, col + 1) && placeQueens(board, col - 1)) {
+                    return true;
                 }
+
+                board[row][col] = 0;
             }
         }
 
