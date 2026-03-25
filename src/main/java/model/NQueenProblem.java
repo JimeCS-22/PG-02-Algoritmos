@@ -1,16 +1,25 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class NQueenProblem {
 
     public String solveNQueens(int n) {
 
         String result = "";
-        int [][] board = new int[n][n];
+        int[][] board = new int[n][n];
 
-        if (placeQueens(board, 0)){
+        Random rand = new Random();
+        int startCol = rand.nextInt(n); // columna aleatoria
 
+        if (placeQueens(board, startCol)) {
             result += printBoard(board);
-        }else result+="No solution found";
+        } else {
+            result += "No existe solución para un tablero de " + n + "*" + n;
+        }
 
         return result;
     }
@@ -31,30 +40,25 @@ public class NQueenProblem {
     }
 
     /*Metodo que permite colocar las reinas dentro del tablero*/
-    private boolean placeQueens(int[][] board, int col) {
+    private boolean placeQueens(int[][] board, int queensPlaced) {
 
-        //Caso base: cuando todas las reinas han sido colocadas
-        if (col == board.length) return true;
+        if (queensPlaced == board.length) return true;
 
-        //Colocamos la reina en la columna actual
-        for (int row = 0; row<board.length; row++){
+        for (int col = 0; col < board.length; col++) {
+            for (int row = 0; row < board.length; row++) {
 
-            if(isSafe(board, row, col)){
+                if (board[row][col] == 0 && isSafe(board, row, col)) {
 
-                board[row][col] = 1;//coloque la reina
+                    board[row][col] = 1;
 
-                //ahora colocamos las reinas restantes
-                if (placeQueens(board, col+1)) return true;
-                //Si no se pudo colocar la reina, retrocedemos y continuar probando
-                board[row][col] = 0;
+                    if (placeQueens(board, queensPlaced + 1)) return true;
+
+                    board[row][col] = 0;
+                }
             }
-
-
         }
 
-        //si llego aqui, significa que no encontro una solucion
         return false;
-
     }
 
     //Metodo para comprobar si es seguro colocar una reina en la posicion dada
