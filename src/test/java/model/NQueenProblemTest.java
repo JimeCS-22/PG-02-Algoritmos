@@ -17,6 +17,7 @@ class NQueenProblemTest {
         System.out.println("Problemas de las N reinas. " );
         System.out.println("Solución para N=8");
         System.out.println(nQueenProblem.solveNQueens(8));
+
     }
 
 }
