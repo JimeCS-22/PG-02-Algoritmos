@@ -73,25 +73,25 @@
                                             <children>
                                                 <HBox prefHeight="50.0" prefWidth="129.0">
                                                     <children>
-                                                        <Label text="■" />
+                                                        <Label text="■" textFill="#ff0606" />
                                                         <Label text="Comparando" />
                                                     </children>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="115.0">
                                                     <children>
-                                                        <Label text="■" />
+                                                        <Label text="■" textFill="#b4b4b4" />
                                                         <Label text="Visitado" />
                                                     </children>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="131.0">
                                                     <children>
-                                                        <Label text="■" />
+                                                        <Label text="■" textFill="#3aff09" />
                                                         <Label text="Encontrado" />
                                                     </children>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="114.0">
                                                     <children>
-                                                        <Label text="■" />
+                                                        <Label text="■" textFill="#0051ff" />
                                                         <Label text="Sin Visitar" />
                                                     </children>
                                                 </HBox>
