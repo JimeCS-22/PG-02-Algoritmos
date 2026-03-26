@@ -75,6 +75,8 @@ public class MainController implements Initializable {
         binArray = SearchEngine.generateSorted(size, size * 15);
         binResult = null;
         repaintBin();
+        updateArrayLabel(lblBinArray, binArray);
+        clearStats(lblBinArray,lblBinComps,lblBinTime,lblBinComplex);
 
     }
 
@@ -100,6 +102,26 @@ public class MainController implements Initializable {
             if (idx >= 0 && idx < n) vis[idx] = true;
         }
         return vis;
+    }
+
+    private void updateArrayLabel(Label lbl, int[] arr) {
+        if (arr == null || arr.length == 0) { lbl.setText(""); return; }
+        StringBuilder sb = new StringBuilder("[");
+        int show = Math.min(arr.length, 20);
+        for (int i = 0; i < show; i++) {
+            sb.append(arr[i]);
+            if (i < show - 1) sb.append(", ");
+        }
+        if (arr.length > 20) sb.append(", …");
+        sb.append("]  (n=").append(arr.length).append(")");
+        lbl.setText(sb.toString());
+    }
+
+    private void clearStats(Label ... labels){
+        for (Label lbl : labels) {
+            lbl.setText("-");
+            lbl.setStyle("");
+        }
     }
 
     private void configSlider(Slider s, int min, int max, int val, Label lblBinSize) {
