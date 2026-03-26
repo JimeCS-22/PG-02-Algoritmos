@@ -1,8 +1,12 @@
 package controller;
 
+import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import model.ArrayPainter;
+import model.SearchEngine;
+import model.SearchResult;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,6 +44,13 @@ public class MainController implements Initializable {
     private Button btnBinReset;
     @javafx.fxml.FXML
     private Label lblBinComps;
+
+    //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
+    private final SearchEngine searchEngine = new SearchEngine();
+    private final ArrayPainter arrayPainter = new ArrayPainter();
+    private Timeline animation;
+    private int[] binArray;
+    private SearchResult binResult;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
