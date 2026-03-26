@@ -1,6 +1,8 @@
 package controller;
 
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ import model.SearchResult;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -77,6 +80,35 @@ public class MainController implements Initializable {
             return;
         }
 
+        /**
+         * Tomamos el valor a buscar del textField
+         * Si el usuario no indico ningun valor, asignamos uno de los que existen en el arreglo
+        **/
+        int value;
+        try {
+
+            value = Integer.parseInt(txtBinValue.getText());
+
+
+        }catch (NumberFormatException e){
+            //Elegimos un elemento al azar del arreglo
+            value = binArray[new Random().nextInt(binArray.length)];
+            txtBinValue.setText(String.valueOf(value));
+        }
+        binArray = SearchEngine.ensureContains(binArray, value);
+        updateArrayLabel(lblBinArray,binArray);
+        SearchResult searchResult = searchEngine.binary(binArray, value);
+
+        //llenamos el ListView
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (int i = 0; i < searchResult.steps.size(); i++) {
+
+            SearchResult.Step step = searchResult.steps.get(i);
+            items.add(String.format("[%02d] %s" , i+1, step.description));
+
+        }
+
+        listBinSteps.setItems(items);
 
     }
 
