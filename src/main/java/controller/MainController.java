@@ -1,9 +1,13 @@
 package controller;
 
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 
-public class MainController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
     @javafx.fxml.FXML
     private TabPane mainTabs;
     @javafx.fxml.FXML
@@ -25,7 +29,7 @@ public class MainController {
     @javafx.fxml.FXML
     private Button btnBinSearch;
     @javafx.fxml.FXML
-    private ListView listBinSteps;
+    private ListView<String> listBinSteps;
     @javafx.fxml.FXML
     private Label lblBinResult;
     @javafx.fxml.FXML
@@ -36,4 +40,9 @@ public class MainController {
     private Button btnBinReset;
     @javafx.fxml.FXML
     private Label lblBinComps;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
