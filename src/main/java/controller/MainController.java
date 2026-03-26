@@ -67,6 +67,24 @@ public class MainController implements Initializable {
 
         configSlider(sliderBinSize, 10, 50, 20, lblBinSize);
         btnBinGen.setOnAction(e -> generateBin());
+        btnBinSearch.setOnAction(e -> runSearch(false));
+    }
+
+    private void runSearch(boolean animate) {
+
+        if (binArray == null ) {
+            showError(txtBinValue, "Primero genere un arreglo");
+            return;
+        }
+
+
+    }
+
+    private void showError(TextField txt, String msg) {
+
+        txt.setStyle("-fx-border-color:  #E74C3C");
+        txt.setPromptText(msg);
+        txt.setText("");
     }
 
     private void generateBin() {
@@ -76,7 +94,6 @@ public class MainController implements Initializable {
         binResult = null;
         repaintBin();
         updateArrayLabel(lblBinArray, binArray);
-        clearStats(lblBinArray,lblBinComps,lblBinTime,lblBinComplex);
 
     }
 
