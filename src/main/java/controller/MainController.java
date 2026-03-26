@@ -52,8 +52,30 @@ public class MainController implements Initializable {
     private int[] binArray;
     private SearchResult binResult;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        
+        setupBinTab();
+
+
 
     }
+
+    private void setupBinTab() {
+
+        configSlider(sliderBinSize, 10, 50, 20, lblBinSize);
+    }
+
+    private void configSlider(Slider s, int min, int max, int val, Label lblBinSize) {
+
+        s.setMin(min); s.setMax(max); s.setValue(val);
+        s.setMajorTickUnit(5); s.setSnapToTicks(false);
+        s.valueProperty().addListener((obs, oldVal, newVal) -> {
+            lblBinSize.setText(String.valueOf(newVal.intValue()));
+        });
+
+    }
+
+
 }
