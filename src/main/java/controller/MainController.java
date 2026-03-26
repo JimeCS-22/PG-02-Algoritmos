@@ -9,6 +9,7 @@ import model.SearchEngine;
 import model.SearchResult;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -65,6 +66,40 @@ public class MainController implements Initializable {
     private void setupBinTab() {
 
         configSlider(sliderBinSize, 10, 50, 20, lblBinSize);
+        btnBinGen.setOnAction(e -> generateBin());
+    }
+
+    private void generateBin() {
+
+        int size = (int) sliderBinSize.getValue();
+        binArray = SearchEngine.generateSorted(size, size * 15);
+        binResult = null;
+        repaintBin();
+
+    }
+
+    private void repaintBin() {
+
+        if (binResult == null) return;
+
+        SearchResult.Step step = null;
+        boolean[] visited = null;
+        int found = -1;
+
+        if (binResult != null){
+            step = binResult.steps.isEmpty() ? null : binResult.steps.get(binResult.steps.size() - 1);
+            visited = buildVisited(binResult.steps, binArray.length, binResult.steps.size());
+        }
+    }
+
+    private boolean[] buildVisited(List<SearchResult.Step> steps, int n, int upTo) {
+        boolean[] vis = new boolean[n];
+        int limit = Math.min(upTo, steps.size());
+        for (int i = 0; i < limit; i++) {
+            int idx = steps.get(i).index;
+            if (idx >= 0 && idx < n) vis[idx] = true;
+        }
+        return vis;
     }
 
     private void configSlider(Slider s, int min, int max, int val, Label lblBinSize) {
@@ -76,6 +111,8 @@ public class MainController implements Initializable {
         });
 
     }
+
+
 
 
 }
