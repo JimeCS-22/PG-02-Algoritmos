@@ -1,11 +1,13 @@
 package controller;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import model.ArrayPainter;
 import model.SearchEngine;
 import model.SearchResult;
@@ -117,6 +119,8 @@ public class MainController implements Initializable {
         //agregamos la animacion del canvas
         if (animate){
 
+            animateSearch(searchResult, binArray,canvasBin,progressBarBin, listBinSteps);
+
         }else {
             //pintamos en el canvas
             boolean [] vist = buildVisited(searchResult.steps, binArray.length, searchResult.steps.size());
@@ -135,7 +139,6 @@ public class MainController implements Initializable {
             return;
         }
 
-        // RESULTADO
         if (searchResult.isFound()) {
             lblBinResult.setText("Encontrado en índice: " + searchResult.foundIndex);
             lblBinResult.setStyle("-fx-text-fill: #2ECC71; -fx-font-weight: bold;");
@@ -144,18 +147,47 @@ public class MainController implements Initializable {
             lblBinResult.setStyle("-fx-text-fill: #E74C3C; -fx-font-weight: bold;");
         }
 
-        // COMPARACIONES
+
         lblBinComps.setText(String.valueOf(searchResult.comparisons));
         lblBinComps.setStyle("-fx-text-fill: #3498DB;");
 
-        // TIEMPO (convertimos de nanosegundos a milisegundos)
+
         double timeMs = searchResult.nanoTime / 1_000_000.0;
         lblBinTime.setText(String.format("%.4f ms", timeMs));
         lblBinTime.setStyle("-fx-text-fill: #9B59B6;");
 
-        // COMPLEJIDAD (usamos el método de tu clase)
+
         lblBinComplex.setText(searchResult.complexityLabel());
         lblBinComplex.setStyle("-fx-text-fill: #F39C12;");
+    }
+
+    private void animateSearch(SearchResult res, int[] arr, Canvas canvas,
+                               ProgressBar pb, ListView<String> lv) {
+        stopAnimation();
+        if (res.steps.isEmpty()) return;
+
+        int total = res.steps.size();
+        int delay = Math.max(180, Math.min(800, 3000 / total));
+
+        animation = new Timeline();
+        for (int i = 1; i <= total; i++) {
+            final int step = i;
+            animation.getKeyFrames().add(new KeyFrame(Duration.millis(step * delay), e -> {
+                SearchResult.Step s  = res.steps.get(step - 1);
+                boolean[] vis = buildVisited(res.steps, arr.length, step - 1);
+                int found = s.isHit ? s.index : (step == total ? res.foundIndex : -1);
+                arrayPainter.paint(canvas, arr, s, vis, found);
+                pb.setProgress((double) step / total);
+                lv.scrollTo(step - 1);
+                lv.getSelectionModel().select(step - 1);
+            }));
+        }
+        animation.setOnFinished(e -> pb.setProgress(1.0));
+        animation.play();
+    }
+
+    private void stopAnimation() {
+        if (animation != null) { animation.stop(); animation = null; }
     }
 
     private void showError(TextField txt, String msg) {
