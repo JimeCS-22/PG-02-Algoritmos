@@ -34,4 +34,34 @@ public class Search {
         } else return binarySearch(sortedArray, value, mid + 1, high);
 
     }
+
+    /**
+     * Metodo iteractivo de la busqueda binaria
+     **/
+
+    public static int binarySearchIterative(int [] sortedArray, int value){
+
+        int low = 0;
+        int high = sortedArray.length - 1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            steps.add("Rango [" + low + " , " + high + " ] ----> mitad  = " + mid + " (sortedArray[mid] = " +
+                    sortedArray[mid] + " )");
+
+            if (value == sortedArray[mid]) {
+                steps.add("Valor encontrado en el indice " + mid);
+                return mid;
+            } else if (value < sortedArray[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        steps.add("No se encontró el valor " + value);
+        return -1;
+    }
 }
