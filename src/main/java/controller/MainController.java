@@ -71,6 +71,7 @@ public class MainController implements Initializable {
         configSlider(sliderBinSize, 10, 50, 20, lblBinSize);
         btnBinGen.setOnAction(e -> generateBin());
         btnBinSearch.setOnAction(e -> runSearch(false));
+        btnBinAnimate.setOnAction(e -> runSearch(true));
     }
 
     private void runSearch(boolean animate) {
@@ -110,6 +111,51 @@ public class MainController implements Initializable {
 
         listBinSteps.setItems(items);
 
+        //actualizar
+        updateStats(lblBinResult,lblBinComps,lblBinTime, lblBinComplex,searchResult);
+
+        //agregamos la animacion del canvas
+        if (animate){
+
+        }else {
+            //pintamos en el canvas
+            boolean [] vist = buildVisited(searchResult.steps, binArray.length, searchResult.steps.size());
+            SearchResult.Step last = searchResult.steps.isEmpty() ? null : searchResult.steps.getLast();
+            arrayPainter.paint(canvasBin, binArray,last,vist, searchResult.foundIndex);
+            progressBarBin.setProgress(1.0);
+
+        }
+
+    }
+
+    private void updateStats(Label lblBinResult, Label lblBinComps, Label lblBinTime, Label lblBinComplex, SearchResult searchResult) {
+
+        if (searchResult == null) {
+            clearStats(lblBinResult, lblBinComps, lblBinTime, lblBinComplex);
+            return;
+        }
+
+        // RESULTADO
+        if (searchResult.isFound()) {
+            lblBinResult.setText("Encontrado en índice: " + searchResult.foundIndex);
+            lblBinResult.setStyle("-fx-text-fill: #2ECC71; -fx-font-weight: bold;");
+        } else {
+            lblBinResult.setText("No encontrado");
+            lblBinResult.setStyle("-fx-text-fill: #E74C3C; -fx-font-weight: bold;");
+        }
+
+        // COMPARACIONES
+        lblBinComps.setText(String.valueOf(searchResult.comparisons));
+        lblBinComps.setStyle("-fx-text-fill: #3498DB;");
+
+        // TIEMPO (convertimos de nanosegundos a milisegundos)
+        double timeMs = searchResult.nanoTime / 1_000_000.0;
+        lblBinTime.setText(String.format("%.4f ms", timeMs));
+        lblBinTime.setStyle("-fx-text-fill: #9B59B6;");
+
+        // COMPLEJIDAD (usamos el método de tu clase)
+        lblBinComplex.setText(searchResult.complexityLabel());
+        lblBinComplex.setStyle("-fx-text-fill: #F39C12;");
     }
 
     private void showError(TextField txt, String msg) {
