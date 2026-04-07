@@ -99,23 +99,18 @@ public class Greedy {
         int n = arr.length;
         boolean swapped;
 
-        // Outer loop for each pass
         for (int i = 0; i < n - 1; i++) {
             swapped = false;
 
-            // Inner loop to compare adjacent elements
-            // (n - i - 1) ensures we don't re-check already sorted end elements
             for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j].getRatio() < arr[j + 1].getRatio()) { //poner el .getRadio es tropicalizar cambie el < por >
-                    // Swap elements arr[j] and arr[j + 1]
-                    Item temp = arr[j]; //cambie int por Item
+                if (arr[j].getRatio() < arr[j + 1].getRatio()) {
+                    Item temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
                     swapped = true;
                 }
             }
 
-            // Optimization: if no two elements were swapped, array is sorted
             if (!swapped) break;
         }
     }
