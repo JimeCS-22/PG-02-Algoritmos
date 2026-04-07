@@ -45,16 +45,16 @@ public class Greedy {
     //Complejidad 0(monto / monto_moneda)
     //Con denominación
     public static class KnapsackResult{
-        private final Item[] sortedItems;
-        private final List<Item> selected;
-        private final double maxValue;
-        private final int maxWeight;
+        public final Item[] sortedItems;//Lista inicial de articulos
+        public final List<Item> selectedItems;//elementos agregados en la mochila
+        private final double maxValue;//ganancia maxima
+        private final double maxWeight;//peso maximo
         private final int capacity;
         private final long nanoTime;
 
-        public KnapsackResult(Item[] sortedItems, List<Item> selected, double maxValue, int maxWeight, int capacity, long nanoTime) {
+        public KnapsackResult(Item[] sortedItems, List<Item> selectedItems, double maxValue, int maxWeight, int capacity, long nanoTime) {
             this.sortedItems = sortedItems;
-            this.selected = selected;
+            this.selectedItems = selectedItems;
             this.maxValue = maxValue;
             this.maxWeight = maxWeight;
             this.capacity = capacity;
