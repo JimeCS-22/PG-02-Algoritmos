@@ -70,6 +70,29 @@ public class Greedy {
         //Arrays.sort(sortedItems,(a,b) -> Double.compare(a.getRatio(), b.getRatio()));//compara por la relación valor/peso
         bubbleSort(sortedItems);
 
+        List<Item> selected = new ArrayList<>();
+        double totalValue = 0;
+        int totalWeight = 0;
+        int remainingCapacity = capacity;
+
+        for (Item item : sortedItems) {
+          if (remainingCapacity <= 0) {break;}
+
+          if (item.getWeight() <= remainingCapacity) {
+              //puede tomar el item y agregarlo en la mochila
+            selected.add(new Item(item.getName(), item.getWeight(), item.getValue()));
+            totalValue += item.getValue();
+            totalWeight += item.getWeight();
+            remainingCapacity -= item.getWeight();//resto el peso agregado
+          }
+
+        }
+
+        long nano = System.nanoTime() - t1;
+
+
+        return new KnapsackResult(sortedItems, selected, totalValue, totalWeight, capacity, nano);
+
     }
 
     public static void bubbleSort(Item[] arr) {
