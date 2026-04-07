@@ -305,6 +305,7 @@
                               </HBox>
                               <Label styleClass="section-label" text="Pasos de ejecución" />
                               <ListView fx:id="listBinSteps1" prefHeight="200.0" prefWidth="200.0" styleClass="steps-list" />
+                              <Label fx:id="lblCoinsSummary" styleClass="tab-label" text="Monto Total: --- | Monedas: ---" />
                               <VBox prefHeight="60.0" prefWidth="419.0" styleClass="chart-vertical-grid-lines">
                                  <children>
                                     <Label prefHeight="21.0" prefWidth="230.0" styleClass="axis-label" text="Denominaciones de monedas en colones:" />

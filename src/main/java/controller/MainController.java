@@ -51,21 +51,32 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Label lblBinComps;
 
+    //TAB-2 MONEDAS
+    @javafx.fxml.FXML
+    private TextField txtBinValue1;
+    @javafx.fxml.FXML
+    private Slider sliderBinSize1;
+    @javafx.fxml.FXML
+    private Button btnBinGen1;
+    @javafx.fxml.FXML
+    private ListView<String> listBinSteps1;
+    @javafx.fxml.FXML
+    private Button btnBinReset1;
+
     //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
     private final SearchEngine searchEngine = new SearchEngine();
     private final ArrayPainter arrayPainter = new ArrayPainter();
     private Timeline animation;
     private int[] binArray;
     private SearchResult binResult;
+    @javafx.fxml.FXML
+    private Label lblCoinsSummary;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
         setupBinTab();
-
-
-
+        setupCoinsTab();
     }
 
     private void setupBinTab() {
@@ -262,6 +273,41 @@ public class MainController implements Initializable {
     }
 
 
+
+    //TAB-2 MONEDAS - METODOS
+
+    private void setupCoinsTab() {
+        btnBinGen1.setOnAction(e -> runCoinChange());
+        btnBinReset1.setOnAction(e -> clearCoinChange());
+    }
+
+    private void runCoinChange() {
+        int monto;
+        try {
+            monto = Integer.parseInt(txtBinValue1.getText().trim());
+        } catch (NumberFormatException ex) {
+            showError(txtBinValue1, "Ingrese un monto válido");
+            return;
+        }
+
+        // Se llama a greedy y se obtienen los pasos
+        List<String> pasos = model.Greedy.coinChange2(monto);
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (int i = 0; i < pasos.size(); i++) {
+            items.add(String.format("[%02d] %s", i + 1, pasos.get(i)));
+        }
+
+        listBinSteps1.setItems(items);
+        int monedasCount = pasos.size();
+        lblCoinsSummary.setText("Monto Total: " + monto + " | Monedas: " + monedasCount);
+    }
+
+    private void clearCoinChange() {
+        txtBinValue1.clear();
+        listBinSteps1.getItems().clear();
+        lblCoinsSummary.setText("Monto Total: --- | Monedas: ---");
+    }
 
 
 }
