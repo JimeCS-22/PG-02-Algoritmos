@@ -31,4 +31,34 @@ class GreedyTest {
         }
     }
 
+    @Test
+    void TestCoinChange3() {
+        List<String> lista = new ArrayList<>();
+        lista = Greedy.coinChange2(1024);
+
+        for(String value : lista){
+            System.out.println(value);
+        }
+    }
+
+    @Test
+    void TestCoinChange4() {
+        List<String> lista = new ArrayList<>();
+        lista = Greedy.coinChange2( 960);
+
+        for(String value : lista){
+            System.out.println(value);
+        }
+    }
+
+    @Test
+    void TestCoinChange5() {
+        List<String> lista = new ArrayList<>();
+        lista = Greedy.coinChange2( 2345);
+
+        for(String value : lista){
+            System.out.println(value);
+        }
+    }
+
 }
