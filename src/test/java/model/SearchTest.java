@@ -12,6 +12,9 @@ class SearchTest {
     @Test
     void searchTest(){
 
+        System.out.println("\n--- BUSQUEDA RECURSIVA ---");
+
+
         int [] sortedArray = util.Utility.generatedSorted(20,50);
         int value = new Random().nextInt(50); // Genera un valor aleatorio entre 0 y 50
         int pos = Search.binarySearch(sortedArray, value, 0, sortedArray.length - 1);

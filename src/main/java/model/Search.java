@@ -64,4 +64,8 @@ public class Search {
         steps.add("No se encontró el valor " + value);
         return -1;
     }
+
+    /**
+     * Metodo de busqueda binaria Secuencial
+     **/
 }
