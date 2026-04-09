@@ -12,6 +12,23 @@ public class Greedy {
 
     public static class Coin{
 
+        private  int coin;
+        private int quantity;
+        private int amount;
+        private int remaining;//Quantity* coin
+
+        public Coin(int coin, int quantity, int amount, int remaining){
+            this.coin = coin;
+            this.quantity = quantity;
+            this.amount = amount;
+            this.remaining = remaining;
+
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%d x %d = %d (remaining %d)", coin, quantity, amount, remaining);
+        }
     }
     public static List<Integer> coinChange(int monto){
 
