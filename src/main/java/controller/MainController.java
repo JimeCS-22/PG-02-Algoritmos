@@ -123,6 +123,22 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Slider sliderVelocidad;
     private CoinPainter monedasCanvas;
+    @javafx.fxml.FXML
+    private Label lblSolucion;
+    @javafx.fxml.FXML
+    private Label lblBack;
+    @javafx.fxml.FXML
+    private Label lblTime;
+    @javafx.fxml.FXML
+    private Label lblConflictos;
+    @javafx.fxml.FXML
+    private Label lblCalls;
+    @javafx.fxml.FXML
+    private Canvas canasTab;
+    @javafx.fxml.FXML
+    private ListView ListSyeps;
+    @javafx.fxml.FXML
+    private ProgressBar progressBar;
 
 
     @Override
