@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.ArrayPainter;
 import model.SearchEngine;
@@ -53,15 +54,28 @@ public class MainController implements Initializable {
 
     //TAB-2 MONEDAS
     @javafx.fxml.FXML
-    private TextField txtBinValue1;
+    private TextField txtCoinValue;
     @javafx.fxml.FXML
-    private Slider sliderBinSize1;
+    private Slider sliderCoinAmount;
     @javafx.fxml.FXML
-    private Button btnBinGen1;
+    private Button btnCoinChange;
     @javafx.fxml.FXML
-    private ListView<String> listBinSteps1;
+    private ListView<String> listCoinSteps;
     @javafx.fxml.FXML
-    private Button btnBinReset1;
+    private Button btnCoinReset;
+    @javafx.fxml.FXML
+    private Canvas canvasCoin;
+    @javafx.fxml.FXML
+    private TableView tableViewCoin;
+    @javafx.fxml.FXML
+    private TableColumn colMonto;
+    @javafx.fxml.FXML
+    private TableColumn colMoneda;
+    @javafx.fxml.FXML
+    private TableColumn colCantidad;
+    @javafx.fxml.FXML
+    private TableColumn colRestante;
+
 
     //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
     private final SearchEngine searchEngine = new SearchEngine();
@@ -69,8 +83,6 @@ public class MainController implements Initializable {
     private Timeline animation;
     private int[] binArray;
     private SearchResult binResult;
-    @javafx.fxml.FXML
-    private Label lblCoinsSummary;
     @javafx.fxml.FXML
     private AnchorPane tab4x4;
     @javafx.fxml.FXML
@@ -87,7 +99,6 @@ public class MainController implements Initializable {
     private ToggleButton tab8x8;
     @javafx.fxml.FXML
     private Slider sliderVelocidad;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -293,36 +304,42 @@ public class MainController implements Initializable {
     //TAB-2 MONEDAS - METODOS
 
     private void setupCoinsTab() {
-        btnBinGen1.setOnAction(e -> runCoinChange());
-        btnBinReset1.setOnAction(e -> clearCoinChange());
+        sliderCoinAmount.setMin(500);
+        sliderCoinAmount.setMax(5000);
+        sliderCoinAmount.setValue(787);
+        sliderCoinAmount.valueProperty().addListener((observable, oldValue, newValue) -> {
+            txtCoinValue.setText(String.valueOf(newValue.intValue()));
+        });
+
+        btnCoinChange.setOnAction(e -> runCoinChange());
+        btnCoinReset.setOnAction(e -> clearCoinChange());
     }
 
     private void runCoinChange() {
         int monto;
         try {
-            monto = Integer.parseInt(txtBinValue1.getText().trim());
+            monto = Integer.parseInt(txtCoinValue.getText().trim());
         } catch (NumberFormatException ex) {
-            showError(txtBinValue1, "Ingrese un monto válido");
+            showError(txtCoinValue, "Ingrése un monto válido");
             return;
         }
 
         // Se llama a greedy y se obtienen los pasos
-        List<String> pasos = model.Greedy.coinChange2(monto);
+        listCoinSteps.getItems().clear();
+        List<String> coinList = model.Greedy.coinChange2(monto);
 
         ObservableList<String> items = FXCollections.observableArrayList();
-        for (int i = 0; i < pasos.size(); i++) {
-            items.add(String.format("[%02d] %s", i + 1, pasos.get(i)));
+        for (int i = 0; i < coinList.size(); i++) {
+            items.add(String.format("[%02d] %s", i + 1, coinList.get(i)));
         }
 
-        listBinSteps1.setItems(items);
-        int monedasCount = pasos.size();
-        lblCoinsSummary.setText("Monto Total: " + monto + " | Monedas: " + monedasCount);
+        items.add("Monto Total: " + monto + " | Monedas: " + coinList.size());
+        listCoinSteps.setItems(items);
     }
 
     private void clearCoinChange() {
-        txtBinValue1.clear();
-        listBinSteps1.getItems().clear();
-        lblCoinsSummary.setText("Monto Total: --- | Monedas: ---");
+        txtCoinValue.clear();
+        listCoinSteps.getItems().clear();
     }
 
 

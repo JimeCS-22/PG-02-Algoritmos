@@ -9,6 +9,10 @@ public class Greedy {
 
     private static final int [] monedas = {500,100,50,25,10,5,1};
 
+
+    public static class Coin{
+
+    }
     public static List<Integer> coinChange(int monto){
 
         List<Integer> usudas = new ArrayList<>();
