@@ -292,8 +292,10 @@ public class MainController implements Initializable {
         sliderCoinAmount.setMin(500);
         sliderCoinAmount.setMax(5000);
         sliderCoinAmount.setValue(787);
+        sliderCoinAmount.setMajorTickUnit(5);
+        sliderCoinAmount.setSnapToTicks(false);
         sliderCoinAmount.valueProperty().addListener((observable, oldValue, newValue) -> {
-           txtCoinValue.setText(String.valueOf(newValue));
+           txtCoinValue.setText(String.valueOf(newValue.intValue()));
         });
 
         btnCoinChange.setOnAction(e -> runCoinChange());
@@ -305,7 +307,7 @@ public class MainController implements Initializable {
         try {
             monto = Integer.parseInt(txtCoinValue.getText().trim());
         } catch (NumberFormatException ex) {
-            showError(txtCoinValue, "Ingrese un monto válido");
+            showError(txtCoinValue, "Ingrése un monto válido");
             return;
         }
 
