@@ -25,21 +25,13 @@ public class Greedy {
 
         }
 
-        public int getCoin() {
-            return coin;
-        }
+        public int getCoin() {return coin;}
 
-        public int getQuantity() {
-            return quantity;
-        }
+        public int getQuantity() {return quantity;}
 
-        public int getAmount() {
-            return amount;
-        }
+        public int getAmount() {return amount;}
 
-        public int getRemaining() {
-            return remaining;
-        }
+        public int getRemaining() {return remaining;}
 
         @Override
         public String toString() {

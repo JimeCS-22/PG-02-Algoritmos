@@ -350,7 +350,7 @@ public class MainController implements Initializable {
       // Busca su índice dentro del VBox
         int index = vb.getChildren().indexOf(canvasCoin);
 
-      // Crea la instancia y reemplaza
+      // Crea la instancia y reemplaza<<<<<<<<<<<<<<<<<<<<
         monedasCanvas = new CoinPainter();
         monedasCanvas.setWidth(canvasCoin.getWidth());
         monedasCanvas.setHeight(canvasCoin.getHeight());
@@ -390,10 +390,25 @@ public class MainController implements Initializable {
             }
         }
 
+        // Table View
+        tableViewCoin.getItems().clear();
+        int remainingTable = monto;
+
+        for (int coin : MONEDAS_CR) {
+            int quantity = remainingTable / coin;
+            if (quantity > 0) {
+                remainingTable %= coin;
+                tableViewCoin.getItems().add(new Greedy.Coin(coin, quantity, quantity * coin, remainingTable));
+            }
+        }
+
+        // Cantidades para el canvas
         int[] cantidades = new int[MONEDAS_CR.length];
+        int remainingCanvas = monto;
+
         for (int i = 0; i < MONEDAS_CR.length; i++) {
-            cantidades[i] = remaining / MONEDAS_CR[i];
-            remaining = remaining % MONEDAS_CR[i];
+            cantidades[i] = remainingCanvas / MONEDAS_CR[i];
+            remainingCanvas %= MONEDAS_CR[i];
         }
 
         // Actualiza el canvas de monedas
