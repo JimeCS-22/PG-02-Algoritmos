@@ -10,11 +10,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import model.ArrayPainter;
-import model.Greedy;
-import model.SearchEngine;
-import model.SearchResult;
+import model.*;
 
 import java.net.URL;
 import java.util.List;
@@ -124,6 +122,7 @@ public class MainController implements Initializable {
     private ToggleButton tab8x8;
     @javafx.fxml.FXML
     private Slider sliderVelocidad;
+    private CoinPainter monedasCanvas;
 
 
     @Override
@@ -325,8 +324,6 @@ public class MainController implements Initializable {
 
     }
 
-
-
     //TAB-2 MONEDAS - METODOS
 
     private void setupCoinsTab() {
@@ -346,6 +343,18 @@ public class MainController implements Initializable {
 
         btnCoinChange.setOnAction(e -> runCoinChange());
         btnCoinReset.setOnAction(e -> clearCoinChange());
+
+        // Encuentra el padre donde está canvasCoin (es el VBox del FXML)
+        VBox vb = (VBox) canvasCoin.getParent();
+
+      // Busca su índice dentro del VBox
+        int index = vb.getChildren().indexOf(canvasCoin);
+
+      // Crea la instancia y reemplaza
+        monedasCanvas = new CoinPainter();
+        monedasCanvas.setWidth(canvasCoin.getWidth());
+        monedasCanvas.setHeight(canvasCoin.getHeight());
+        vb.getChildren().set(index, monedasCanvas);
     }
 
     private void runCoinChange() {
@@ -379,6 +388,17 @@ public class MainController implements Initializable {
                 //agregamos la fila al tableview
                 tableViewCoin.getItems().add(new Greedy.Coin(coin, quantity, quantity*coin, remaining));
             }
+        }
+
+        int[] cantidades = new int[MONEDAS_CR.length];
+        for (int i = 0; i < MONEDAS_CR.length; i++) {
+            cantidades[i] = remaining / MONEDAS_CR[i];
+            remaining = remaining % MONEDAS_CR[i];
+        }
+
+        // Actualiza el canvas de monedas
+        if (monedasCanvas != null) {
+            monedasCanvas.setMonedas(cantidades);
         }
     }
 
