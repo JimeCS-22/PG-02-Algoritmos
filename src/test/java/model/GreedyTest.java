@@ -68,7 +68,7 @@ class GreedyTest {
         Item[] lista = Item.Package1();
         lista = Greedy.knapsackSolve( lista,15).sortedItems;
 
-        System.out.println(" Test Knapsack Cap 15");
+        System.out.println(" Test Knapsack - Capacity 15");
         for(Item value : lista){
             System.out.println(value);
         }

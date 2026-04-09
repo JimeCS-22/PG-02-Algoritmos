@@ -648,14 +648,49 @@ public class MainController implements Initializable {
         Greedy.KnapsackResult result = Greedy.knapsackSolve(items, capacity);
         lblValorOptimo.setText(( result.getMaxValue())+"" );
         lblTimeKnapsack.setText((result.getNanoTime())+" ms");
-       // listStepsKnapsack.setItems(result.selectedItems);
+
+        Item[] lista = result.sortedItems;
+        ObservableList<String> listaItems= FXCollections.observableArrayList();
+        listaItems.add("Lista de objetos: ");
+        for (Item item : lista) {
+            listaItems.add(item.toString());
+        }
+
+        listaItems.add("----------------------");
+        listaItems.add("Pasos del algoritmo:");
+
+        for (Item item : lista) {
+            listaItems.add(getPaso(item, result));
+        }
+        listStepsKnapsack.setItems(listaItems);
+
         //Resumen mochila
         lblCapKnapsack.setText( result.getCapacity() + " kg");
         lblWeightKnapsack.setText( result.getMaxWeight()+ " kg");
         lblTotalValueKnapsack.setText("₡ "+ result.getMaxValue());
-        //GraphicsContext gc = canvasKnapsack.getGraphicsContext2D();
+        //dibujar la mochila
         knapsackPainter.dibujarMochila(canvasKnapsack,sliderKnapsack.getValue(),items);
 
+    }
+
+    private static String getPaso(Item item, Greedy.KnapsackResult result) {
+        double capacidadRestante =  result.getCapacity();
+        double fraccion = capacidadRestante >= item.getWeight()
+                ? 1.0
+                : (double) capacidadRestante / item.getWeight();
+
+        double valorTomado = item.getValue() * fraccion;
+
+        String paso;
+
+        if (fraccion == 1.0) {
+            paso = "✔ Tomar 100% de '" + item.getName() +
+                    "' (" + item.getWeight() + "kg) → +" + item.getValue();
+        } else {
+            paso = "⚠ Tomar " + String.format("%.2f", fraccion * 100) + "% de '" +
+                    item.getName() + "' → +" + String.format("%.2f", valorTomado);
+        }
+        return paso;
     }
 
     private void configChoiceBox(ChoiceBox cbPaquetes) {

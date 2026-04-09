@@ -320,7 +320,7 @@
                                                         <Font size="11.0" />
                                                     </font>
                                                 </Label>
-                                                <VBox layoutX="326.0" layoutY="102.0" prefHeight="200.0" prefWidth="194.0">
+                                                <VBox layoutX="371.0" layoutY="99.0" prefHeight="200.0" prefWidth="194.0">
                                                     <children>
                                                         <Label prefHeight="14.0" prefWidth="113.0" styleClass="axis-label" text="Resumen Mochila:" />
                                                         <HBox prefHeight="26.0" prefWidth="194.0">
@@ -347,7 +347,7 @@
                                                         </HBox>
                                                     </children>
                                                 </VBox>
-                                                <Canvas fx:id="canvasKnapsack" height="402.0" layoutX="20.0" layoutY="63.0" width="279.0" />
+                                                <Canvas fx:id="canvasKnapsack" height="402.0" layoutX="20.0" layoutY="63.0" width="343.0" />
                                                 <HBox layoutX="12.0" prefHeight="21.0" prefWidth="576.0">
                                                     <children>
                                                         <Label prefHeight="18.0" prefWidth="319.0" styleClass="panel-title" text="Mochila Fraccional - Algoritmo Voraz ">
