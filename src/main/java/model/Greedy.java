@@ -25,6 +25,22 @@ public class Greedy {
 
         }
 
+        public int getCoin() {
+            return coin;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+
+        public int getRemaining() {
+            return remaining;
+        }
+
         @Override
         public String toString() {
             return String.format("%d x %d = %d (remaining %d)", coin, quantity, amount, remaining);
