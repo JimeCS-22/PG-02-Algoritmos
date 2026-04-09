@@ -139,6 +139,7 @@ public class MainController implements Initializable {
     private ToggleButton tab4x4;
     @javafx.fxml.FXML
     private Canvas canvasTab;
+    private ToggleGroup grupoTablero = new ToggleGroup();
 
 
     @Override
@@ -442,55 +443,66 @@ public class MainController implements Initializable {
     //Tab-3 N-QUEENS
     private void setUpNQueensTab(){
 
-        tab4x4.setOnAction(e -> {
-            if (tab4x4.isSelected()) {
+        tab4x4.setToggleGroup(grupoTablero);
+        tab8x8.setToggleGroup(grupoTablero);
 
-                canvasTab.setWidth(400);
-                canvasTab.setHeight(400);
+        // Selección por defecto
+        tab4x4.setSelected(true);
+        dibujarTablero(4);
 
-                int[] posiciones = new int[4];
-                for (int i = 0; i < 4; i++) posiciones[i] = -1;
-
-                NqueensCanvas painter = new NqueensCanvas();
-                painter.paint(canvasTab, posiciones);
-
-            }
-        });
-
-        tab8x8.setOnAction(e -> {
-            if (tab8x8.isSelected()) {
-
-                canvasTab.setWidth(800);
-                canvasTab.setHeight(800);
-
-                int[] posiciones = new int[8];
-                for (int i = 0; i < 8; i++) posiciones[i] = -1;
-
-                NqueensCanvas painter = new NqueensCanvas();
-                painter.paint(canvasTab, posiciones);
-            }
-        });
+        tab4x4.setOnAction(e -> dibujarTablero(4));
+        tab8x8.setOnAction(e -> dibujarTablero(8));
 
         btnResolve.setOnAction(e -> resolverNQueens());
     }
 
     private void resolverNQueens() {
 
-        int n = tab4x4.isSelected() ? 4 : 8;
+        int n = getNSeleccionado();
+
+        int cellSize = 60;
+        double size = n * cellSize;
+
+        canvasTab.setWidth(size);
+        canvasTab.setHeight(size);
 
         NQueenProblem problem = new NQueenProblem();
         int[] posiciones = problem.solveNQueensPositions(n);
 
         if (posiciones == null) {
-            lblSolucion.setText("No hay solución");
+            lblSolucion.setText("0 soluciones");
             return;
         }
 
-        // Pintar
         NqueensCanvas painter = new NqueensCanvas();
         painter.paint(canvasTab, posiciones);
 
-        // Mostrar solución en texto (opcional)
-        lblSolucion.setText("Solución encontrada ✔");
+        lblSolucion.setText("1 solución encontrada ✔");
+    }
+
+    private void dibujarTablero(int n){
+
+        int cellSize = 60;
+        double size = n * cellSize;
+
+        canvasTab.setWidth(size);
+        canvasTab.setHeight(size);
+
+        int[] posiciones = new int[n];
+        for (int i = 0; i < n; i++) {
+            posiciones[i] = -1;
+        }
+
+        NqueensCanvas painter = new NqueensCanvas();
+        painter.paint(canvasTab, posiciones);
+    }
+
+    private int getNSeleccionado() {
+        if (grupoTablero.getSelectedToggle() == tab4x4) {
+            return 4;
+        } else if (grupoTablero.getSelectedToggle() == tab8x8) {
+            return 8;
+        }
+        return 4;
     }
 }
