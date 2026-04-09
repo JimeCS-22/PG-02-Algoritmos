@@ -107,5 +107,32 @@ public class NQueenProblem {
         return true; // Si llego aqui es seguro colocar la reina en esta posicion
     }
 
+    public int[] solveNQueensPositions(int n) {
+
+        int[][] board = new int[n][n];
+        Random rand = new Random();
+        int startCol = rand.nextInt(n);
+
+        if (placeQueens(board, startCol)) {
+
+            int[] posiciones = new int[n];
+
+            for (int col = 0; col < n; col++) {
+                posiciones[col] = -1;
+
+                for (int row = 0; row < n; row++) {
+                    if (board[row][col] == 1) {
+                        posiciones[col] = row;
+                        break;
+                    }
+                }
+            }
+
+            return posiciones;
+        }
+
+        return null; // no hay solución
+    }
+
 
 }

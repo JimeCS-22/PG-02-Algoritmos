@@ -107,8 +107,6 @@ public class MainController implements Initializable {
     private int[] binArray;
     private SearchResult binResult;
     @javafx.fxml.FXML
-    private AnchorPane tab4x4;
-    @javafx.fxml.FXML
     private Button btnClean;
     @javafx.fxml.FXML
     private Label lblVelocidad;
@@ -134,17 +132,20 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Label lblCalls;
     @javafx.fxml.FXML
-    private Canvas canasTab;
-    @javafx.fxml.FXML
     private ListView ListSyeps;
     @javafx.fxml.FXML
     private ProgressBar progressBar;
+    @javafx.fxml.FXML
+    private ToggleButton tab4x4;
+    @javafx.fxml.FXML
+    private Canvas canvasTab;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupBinTab();
         setupCoinsTab();
+        setUpNQueensTab();
     }
 
     private void setupBinTab() {
@@ -438,5 +439,58 @@ public class MainController implements Initializable {
         listCoinSteps.getItems().clear();
     }
 
+    //Tab-3 N-QUEENS
+    private void setUpNQueensTab(){
 
+        tab4x4.setOnAction(e -> {
+            if (tab4x4.isSelected()) {
+
+                canvasTab.setWidth(400);
+                canvasTab.setHeight(400);
+
+                int[] posiciones = new int[4];
+                for (int i = 0; i < 4; i++) posiciones[i] = -1;
+
+                NqueensCanvas painter = new NqueensCanvas();
+                painter.paint(canvasTab, posiciones);
+
+            }
+        });
+
+        tab8x8.setOnAction(e -> {
+            if (tab8x8.isSelected()) {
+
+                canvasTab.setWidth(800);
+                canvasTab.setHeight(800);
+
+                int[] posiciones = new int[8];
+                for (int i = 0; i < 8; i++) posiciones[i] = -1;
+
+                NqueensCanvas painter = new NqueensCanvas();
+                painter.paint(canvasTab, posiciones);
+            }
+        });
+
+        btnResolve.setOnAction(e -> resolverNQueens());
+    }
+
+    private void resolverNQueens() {
+
+        int n = tab4x4.isSelected() ? 4 : 8;
+
+        NQueenProblem problem = new NQueenProblem();
+        int[] posiciones = problem.solveNQueensPositions(n);
+
+        if (posiciones == null) {
+            lblSolucion.setText("No hay solución");
+            return;
+        }
+
+        // Pintar
+        NqueensCanvas painter = new NqueensCanvas();
+        painter.paint(canvasTab, posiciones);
+
+        // Mostrar solución en texto (opcional)
+        lblSolucion.setText("Solución encontrada ✔");
+    }
 }
