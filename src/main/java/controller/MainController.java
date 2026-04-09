@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.ArrayPainter;
+import model.Greedy;
 import model.SearchEngine;
 import model.SearchResult;
 
@@ -66,15 +67,17 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Canvas canvasCoin;
     @javafx.fxml.FXML
-    private TableView tableViewCoin;
+    private TableView<Greedy.Coin> tableViewCoin;
     @javafx.fxml.FXML
-    private TableColumn colMonto;
+    private TableColumn<Greedy.Coin, Integer> colMonto;
     @javafx.fxml.FXML
-    private TableColumn colMoneda;
+    private TableColumn<Greedy.Coin, Integer> colMoneda;
     @javafx.fxml.FXML
-    private TableColumn colCantidad;
+    private TableColumn<Greedy.Coin, Integer> colCantidad;
     @javafx.fxml.FXML
-    private TableColumn colRestante;
+    private TableColumn<Greedy.Coin, Integer> colRestante;
+
+    private static final int [] MONEDAS_CR = {500,100,50,25,10,5,1};
 
 
     //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
@@ -335,6 +338,18 @@ public class MainController implements Initializable {
 
         items.add("Monto Total: " + monto + " | Monedas: " + coinList.size());
         listCoinSteps.setItems(items);
+
+        //Table View
+        tableViewCoin.getItems().clear();
+        int remaining = monto;
+        for(int coin : MONEDAS_CR){
+            int quantity = remaining / coin;
+            if(quantity > 0){
+                remaining %= coin;
+                //agregamos la fila al tableview
+                tableViewCoin.getItems().add(new Greedy.Coin(coin, quantity, quantity*coin, remaining));
+            }
+        }
     }
 
     private void clearCoinChange() {
