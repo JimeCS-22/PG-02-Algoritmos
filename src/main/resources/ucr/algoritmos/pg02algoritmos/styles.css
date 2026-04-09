@@ -384,3 +384,13 @@
 .chart-bar:hover {
     -fx-bar-fill: derive(-fx-bar-fill, -20%);
 }
+
+/*--- Info Boxes ------------------ */
+.info-box{
+    -fx-background-color: #EBF4FF; -fx-padding: 8 12 8 12;
+    -fx-background-radius: 4; -fx-border-color: -ucr-sky; -fx-border-radius: 4; -fx-border-witdth: 1;
+}
+
+.amber-info { -fx-background-color: #FDF5E6; -fx-border-color: -ucr-amber;}
+.info-title { -fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: -ucr-blue;}
+.info-item { -fx-font-size: 11px; -fx-text-fill: -ucr-gray;}
