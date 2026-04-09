@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,7 +110,7 @@ public class Greedy {
 
           if (item.getWeight() <= remainingCapacity) {
               //puede tomar el item y agregarlo en la mochila
-            selected.add(new Item(item.getName(), item.getWeight(), item.getValue()));
+            selected.add(new Item(item.getName(), item.getWeight(), item.getValue(), Color.PINK));
             totalValue += item.getValue();
             totalWeight += item.getWeight();
             remainingCapacity -= item.getWeight();//resto el peso agregado
