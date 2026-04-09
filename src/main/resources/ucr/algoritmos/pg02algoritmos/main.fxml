@@ -23,6 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1031.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
         <VBox prefHeight="95.0" prefWidth="828.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
@@ -260,20 +261,124 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Mochila">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <SplitPane dividerPositions="0.5421522921522921" layoutX="-2.0" layoutY="-1.0" prefHeight="567.0" prefWidth="1031.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
+                <Tab text="Mochila">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <SplitPane dividerPositions="0.577259475218659" layoutX="-2.0" layoutY="-1.0" prefHeight="567.0" prefWidth="1031.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="565.0" prefWidth="600.0">
+                                            <children>
+                                                <Label layoutX="14.0" layoutY="45.0" prefHeight="14.0" prefWidth="357.0" text="Ordenar por ratio v/w -&gt; tomar ítem completo o fracción">
+                                                    <font>
+                                                        <Font size="11.0" />
+                                                    </font>
+                                                </Label>
+                                                <VBox layoutX="284.0" layoutY="103.0" prefHeight="200.0" prefWidth="194.0">
+                                                    <children>
+                                                        <Label prefHeight="14.0" prefWidth="113.0" styleClass="axis-label" text="Resumen Mochila:" />
+                                                        <HBox prefHeight="26.0" prefWidth="194.0">
+                                                            <children>
+                                                                <Label prefHeight="14.0" prefWidth="113.0" text="Capacidad Máx:">
+                                                                    <font>
+                                                                        <Font size="9.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label fx:id="lblCapKnapsack" prefHeight="14.0" prefWidth="113.0" text="kg" />
+                                                            </children>
+                                                        </HBox>
+                                                        <HBox prefHeight="26.0" prefWidth="194.0">
+                                                            <children>
+                                                                <Label prefHeight="14.0" prefWidth="113.0" text="Peso Actual:" textFill="#108627" />
+                                                                <Label fx:id="lblWeightKnapsack" prefHeight="14.0" prefWidth="113.0" text="kg" textFill="#108627" />
+                                                            </children>
+                                                        </HBox>
+                                                        <HBox prefHeight="26.0" prefWidth="194.0">
+                                                            <children>
+                                                                <Label prefHeight="14.0" prefWidth="113.0" text="Valor Total:" textFill="#002cbc" />
+                                                                <Label fx:id="lblTotalValueKnapsack" prefHeight="14.0" prefWidth="113.0" text="₡" textFill="#002cbc" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                <Canvas fx:id="canvasKnapsack" height="368.0" layoutX="20.0" layoutY="97.0" width="246.0" />
+                                                <HBox layoutX="12.0" prefHeight="21.0" prefWidth="576.0">
+                                                    <children>
+                                                        <Label prefHeight="18.0" prefWidth="319.0" styleClass="panel-title" text="Mochila Fraccional - Algoritmo Voraz ">
+                                                            <font>
+                                                                <Font size="6.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label prefHeight="14.0" prefWidth="381.0" text="O (n log n). Solución con la Técnica Algoritmo de Greedy (Voraz)">
+                                                            <font>
+                                                                <Font size="10.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="565.0" prefWidth="367.0">
+                                            <children>
+                                                <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="88.0" styleClass="axis-label" text="Configuración" />
+                                                <HBox layoutX="14.0" layoutY="31.0" prefHeight="32.0" prefWidth="345.0">
+                                                    <children>
+                                                        <Label prefHeight="18.0" prefWidth="76.0" styleClass="param-label" text="Paquetes">
+                                                            <font>
+                                                                <Font size="36.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <ChoiceBox prefHeight="22.0" prefWidth="230.0" />
+                                                    </children>
+                                                </HBox>
+                                                <Label layoutX="14.0" layoutY="63.0" prefHeight="18.0" prefWidth="76.0" styleClass="param-label" text="Cap W =">
+                                                    <font>
+                                                        <Font size="36.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="txtCapWValue" layoutX="88.0" layoutY="59.0" styleClass="value-badge" text="5" />
+                                                <Slider fx:id="sliderKnapsack" layoutX="12.0" layoutY="99.0" prefHeight="33.0" prefWidth="408.0" showTickLabels="true" />
+                                                <HBox layoutX="11.0" layoutY="132.0" prefHeight="51.0" prefWidth="392.0" spacing="10.0">
+                                                    <children>
+                                                        <Button fx:id="btnSolveKnapsack" mnemonicParsing="false" prefHeight="30.0" prefWidth="207.0" styleClass="btn-primary" text="Resolver Greedy" />
+                                                        <Button fx:id="btnResetKnapsack" mnemonicParsing="false" prefHeight="32.0" prefWidth="167.0" styleClass="btn-ghost" text="Limpiar" />
+                                                    </children>
+                                                </HBox>
+                                                <Label layoutX="20.0" layoutY="176.0" prefHeight="14.0" prefWidth="186.0" styleClass="stat-label" text="VALOR ÓPTIMO FRACCIONAL" />
+                                                <Label layoutX="19.0" layoutY="200.0" prefHeight="18.0" prefWidth="113.0" styleClass="param-label" text="Valor óptimo:">
+                                                    <font>
+                                                        <Font size="36.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label layoutX="135.0" layoutY="200.0" prefHeight="18.0" prefWidth="131.0" styleClass="param-label" text="00">
+                                                    <font>
+                                                        <Font size="36.0" />
+                                                    </font>
+                                                </Label>
+                                                <VBox layoutX="20.0" layoutY="234.0" prefHeight="49.0" prefWidth="361.0" styleClass="insight-note">
+                                                    <children>
+                                                        <Label prefHeight="14.0" prefWidth="186.0" styleClass="stat-label" text="TIEMPO DE EJECUCIÓN" />
+                                                        <Label prefHeight="18.0" prefWidth="113.0" styleClass="axis-label" text="ms">
+                                                            <font>
+                                                                <Font size="36.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <Label layoutX="20.0" layoutY="283.0" styleClass="section-label" text="Pasos del algoritmo Greedy" />
+                                                <ListView fx:id="listStepsKnapsack" layoutX="20.0" layoutY="312.0" prefHeight="182.0" prefWidth="384.0" styleClass="steps-list" />
+                                                <Label layoutX="20.0" layoutY="494.0" prefHeight="14.0" prefWidth="110.0" styleClass="axis-label" text="💡Mochila-Voraz" />
+                                                <Label layoutX="25.0" layoutY="508.0" prefHeight="14.0" prefWidth="186.0" styleClass="stat-label" text="• EStrategia: mayor ratio v/w primero" />
+                                                <Label layoutX="25.0" layoutY="522.0" prefHeight="14.0" prefWidth="186.0" styleClass="stat-label" text="• O (n log n) por el ordenamiento" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
             </tabs>
         </TabPane>
     </center>

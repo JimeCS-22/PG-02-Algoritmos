@@ -81,6 +81,26 @@ public class MainController implements Initializable {
 
     private static final int [] MONEDAS_CR = {500,100,50,25,10,5,1};
 
+    //TAB 4 -MOCHILA
+    @javafx.fxml.FXML
+    private Canvas canvasKnapsack;
+    @javafx.fxml.FXML
+    private Slider sliderKnapsack;
+    @javafx.fxml.FXML
+    private Button btnSolveKnapsack;
+    @javafx.fxml.FXML
+    private Button btnResetKnapsack;
+    @javafx.fxml.FXML
+    private Label lblCapKnapsack;
+    @javafx.fxml.FXML
+    private ListView listStepsKnapsack;
+    @javafx.fxml.FXML
+    private Label lblWeightKnapsack;
+    @javafx.fxml.FXML
+    private Label lblTotalValueKnapsack;
+    @javafx.fxml.FXML
+    private Label txtCapWValue;
+
 
     //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
     private final SearchEngine searchEngine = new SearchEngine();
@@ -104,6 +124,7 @@ public class MainController implements Initializable {
     private ToggleButton tab8x8;
     @javafx.fxml.FXML
     private Slider sliderVelocidad;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

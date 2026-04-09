@@ -28,7 +28,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return String.format("%s: (v = %d, w = %d , r=%.2f%)", name, weight, value, value / weight);
+        return String.format("%s: (v = %d, w = %d , r=%.2f)", name, weight, value, getRatio());
     }
 
     // ── Predefined example sets for Item class ───────────────────────────────────────────────
