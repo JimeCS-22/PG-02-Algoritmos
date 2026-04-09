@@ -56,4 +56,55 @@ public class NqueensCanvas  {
         gc.setLineWidth(3);
         gc.strokeRect(margin, margin, size, size);
     }
+
+    public void paint(Canvas canvas, int[] posiciones, NQueenProblem.Step step) {
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        int n = posiciones.length;
+        double cellSize = canvas.getWidth() / n;
+
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        for (int col = 0; col < n; col++) {
+            for (int row = 0; row < n; row++) {
+
+                double x = col * cellSize;
+                double y = row * cellSize;
+
+                // tablero normal
+                if ((row + col) % 2 == 0) {
+                    gc.setFill(Color.WHITE);
+                } else {
+                    gc.setFill(Color.GRAY);
+                }
+
+                // 🔴 TRY
+                if (step != null &&
+                        step.tipo.equals("TRY") &&
+                        step.fila == row &&
+                        step.col == col) {
+
+                    gc.setFill(Color.RED);
+                }
+
+                // 🟢 PLACE
+                if (step != null &&
+                        step.tipo.equals("PLACE") &&
+                        step.fila == row &&
+                        step.col == col) {
+
+                    gc.setFill(Color.GREEN);
+                }
+
+                gc.fillRect(x, y, cellSize, cellSize);
+
+                // 👑 dibujar reina
+                if (posiciones[col] == row) {
+                    gc.setFill(Color.BLACK);
+                    gc.fillText("♛", x + cellSize / 3, y + cellSize / 1.5);
+                }
+            }
+        }
+    }
 }

@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class NQueenProblem {
 
+    public List<Step> steps = new ArrayList<>();
+
     public String solveNQueens(int n) {
 
         String result = "";
@@ -42,10 +44,8 @@ public class NQueenProblem {
     /*Metodo que permite colocar las reinas dentro del tablero*/
     private boolean placeQueens(int[][] board, int col) {
 
-        // Caso base
         if (col >= board.length || col < 0) return true;
 
-        // Si ya hay reina en esta columna, saltarla
         for (int i = 0; i < board.length; i++) {
             if (board[i][col] == 1) {
                 return placeQueens(board, col + 1);
@@ -54,16 +54,19 @@ public class NQueenProblem {
 
         for (int row = 0; row < board.length; row++) {
 
+            steps.add(new Step(row, col, "TRY"));
+
             if (isSafe(board, row, col)) {
 
                 board[row][col] = 1;
+                steps.add(new Step(row, col, "PLACE"));
 
-                // intentar derecha e izquierda
                 if (placeQueens(board, col + 1) && placeQueens(board, col - 1)) {
                     return true;
                 }
 
                 board[row][col] = 0;
+                steps.add(new Step(row, col, "REMOVE"));
             }
         }
 
@@ -109,6 +112,8 @@ public class NQueenProblem {
 
     public int[] solveNQueensPositions(int n) {
 
+        steps.clear(); // 🔥 IMPORTANTE
+
         int[][] board = new int[n][n];
         Random rand = new Random();
         int startCol = rand.nextInt(n);
@@ -131,7 +136,35 @@ public class NQueenProblem {
             return posiciones;
         }
 
-        return null; // no hay solución
+        return null;
+    }
+
+    public List<Step> solveWithSteps(int n) {
+
+        steps.clear();
+
+        int[][] board = new int[n][n];
+
+        Random rand = new Random();
+        int startCol = rand.nextInt(n);
+
+        placeQueens(board, startCol);
+
+        return steps;
+    }
+
+    //Clase para guardar cada paso
+    public static class Step {
+        public int fila;
+        public int col;
+        public String tipo;
+        // "TRY", "PLACE", "REMOVE"
+
+        public Step(int fila, int col, String tipo) {
+            this.fila = fila;
+            this.col = col;
+            this.tipo = tipo;
+        }
     }
 
 

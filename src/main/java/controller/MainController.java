@@ -140,6 +140,8 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Canvas canvasTab;
     private ToggleGroup grupoTablero = new ToggleGroup();
+    private List<NQueenProblem.Step> queenSteps;
+    private Timeline queenAnimation;
 
 
     @Override
@@ -454,6 +456,7 @@ public class MainController implements Initializable {
         tab8x8.setOnAction(e -> dibujarTablero(8));
 
         btnResolve.setOnAction(e -> resolverNQueens());
+        btnAnimar.setOnAction(e -> animateQueens(getNSeleccionado()));
     }
 
     private void resolverNQueens() {
@@ -467,19 +470,41 @@ public class MainController implements Initializable {
         canvasTab.setHeight(size);
 
         NQueenProblem problem = new NQueenProblem();
+
         int[] posiciones = problem.solveNQueensPositions(n);
+
+        queenSteps = problem.steps;
 
         if (posiciones == null) {
             lblSolucion.setText("0 soluciones");
             return;
         }
 
+        lblSolucion.setText("Solución encontrada");
+
+        // 👇 pintar tablero FINAL (sin colores de animación)
         NqueensCanvas painter = new NqueensCanvas();
         painter.paint(canvasTab, posiciones);
 
-        lblSolucion.setText("1 solución encontrada ✔");
-    }
+        // 👇 llenar lista (opcional, pero útil)
+        ObservableList<String> items = FXCollections.observableArrayList();
 
+        for (int i = 0; i < queenSteps.size(); i++) {
+            var s = queenSteps.get(i);
+
+            String estado =
+                    s.tipo.equals("PLACE") ? "✔" :
+                            s.tipo.equals("REMOVE") ? "↩" : "❌";
+
+            items.add(String.format("[%02d] (%d,%d) -> %s",
+                    i + 1,
+                    s.fila,
+                    s.col,
+                    estado));
+        }
+
+        ListSyeps.setItems(items);
+    }
     private void dibujarTablero(int n){
 
         int cellSize = 60;
@@ -504,5 +529,68 @@ public class MainController implements Initializable {
             return 8;
         }
         return 4;
+    }
+
+    private void animateQueens(int n) {
+
+        if (queenSteps == null || queenSteps.isEmpty()) return;
+
+        if (queenAnimation != null) queenAnimation.stop();
+
+        int[][] board = new int[n][n];
+
+        int total = queenSteps.size();
+        int delay = 200;
+
+        queenAnimation = new Timeline();
+
+        for (int i = 0; i < total; i++) {
+
+            final int stepIndex = i;
+
+            queenAnimation.getKeyFrames().add(
+                    new KeyFrame(Duration.millis(i * delay), e -> {
+
+                        NQueenProblem.Step step = queenSteps.get(stepIndex);
+
+                        // ✔ lógica
+                        if (step.tipo.equals("PLACE")) {
+                            board[step.fila][step.col] = 1;
+                        }
+                        else if (step.tipo.equals("REMOVE")) {
+                            board[step.fila][step.col] = 0;
+                        }
+
+                        // 🎨 pintar con colores
+                        NqueensCanvas painter = new NqueensCanvas();
+                        painter.paint(canvasTab, convertirBoard(board), step);
+
+                        // progreso
+                        progressBar.setProgress((double) (stepIndex + 1) / total);
+
+                        // lista
+                        ListSyeps.scrollTo(stepIndex);
+                        ListSyeps.getSelectionModel().select(stepIndex);
+                    })
+            );
+        }
+
+        queenAnimation.play();
+    }
+
+    private int[] convertirBoard(int[][] board) {
+        int n = board.length;
+        int[] posiciones = new int[n];
+
+        for (int col = 0; col < n; col++) {
+            posiciones[col] = -1;
+            for (int row = 0; row < n; row++) {
+                if (board[row][col] == 1) {
+                    posiciones[col] = row;
+                    break;
+                }
+            }
+        }
+        return posiciones;
     }
 }
