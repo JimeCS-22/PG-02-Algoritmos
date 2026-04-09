@@ -53,29 +53,15 @@ public class MainController implements Initializable {
 
     //TAB-2 MONEDAS
     @javafx.fxml.FXML
-    private TextField txtCoinValue;
+    private TextField txtBinValue1;
     @javafx.fxml.FXML
-    private Slider sliderCoinAmount;
+    private Slider sliderBinSize1;
     @javafx.fxml.FXML
-    private Button btnCoinChange;
+    private Button btnBinGen1;
     @javafx.fxml.FXML
-    private ListView<String> listCoinSteps;
+    private ListView<String> listBinSteps1;
     @javafx.fxml.FXML
-    private Button btnCoinReset;
-    @javafx.fxml.FXML
-    private Label lblCoinsSummary;
-    @javafx.fxml.FXML
-    private Canvas canvasCoin;
-    @javafx.fxml.FXML
-    private TableView tableViewCoin;
-    @javafx.fxml.FXML
-    private TableColumn colMonto;
-    @javafx.fxml.FXML
-    private TableColumn colMoneda;
-    @javafx.fxml.FXML
-    private TableColumn colCantidad;
-    @javafx.fxml.FXML
-    private TableColumn colRestante;
+    private Button btnBinReset1;
 
     //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
     private final SearchEngine searchEngine = new SearchEngine();
@@ -83,7 +69,24 @@ public class MainController implements Initializable {
     private Timeline animation;
     private int[] binArray;
     private SearchResult binResult;
-
+    @javafx.fxml.FXML
+    private Label lblCoinsSummary;
+    @javafx.fxml.FXML
+    private AnchorPane tab4x4;
+    @javafx.fxml.FXML
+    private Button btnClean;
+    @javafx.fxml.FXML
+    private Label lblVelocidad;
+    @javafx.fxml.FXML
+    private Button btnAnimar;
+    @javafx.fxml.FXML
+    private Button btnResolve;
+    @javafx.fxml.FXML
+    private Button btnStop;
+    @javafx.fxml.FXML
+    private ToggleButton tab8x8;
+    @javafx.fxml.FXML
+    private Slider sliderVelocidad;
 
 
     @Override
@@ -93,6 +96,7 @@ public class MainController implements Initializable {
     }
 
     private void setupBinTab() {
+
         configSlider(sliderBinSize, 10, 50, 20, lblBinSize);
         btnBinGen.setOnAction(e -> generateBin());
         btnBinSearch.setOnAction(e -> runSearch(false));
@@ -289,25 +293,16 @@ public class MainController implements Initializable {
     //TAB-2 MONEDAS - METODOS
 
     private void setupCoinsTab() {
-        sliderCoinAmount.setMin(500);
-        sliderCoinAmount.setMax(5000);
-        sliderCoinAmount.setValue(787);
-        sliderCoinAmount.setMajorTickUnit(5);
-        sliderCoinAmount.setSnapToTicks(false);
-        sliderCoinAmount.valueProperty().addListener((observable, oldValue, newValue) -> {
-           txtCoinValue.setText(String.valueOf(newValue.intValue()));
-        });
-
-        btnCoinChange.setOnAction(e -> runCoinChange());
-        btnCoinReset.setOnAction(e -> clearCoinChange());
+        btnBinGen1.setOnAction(e -> runCoinChange());
+        btnBinReset1.setOnAction(e -> clearCoinChange());
     }
 
     private void runCoinChange() {
         int monto;
         try {
-            monto = Integer.parseInt(txtCoinValue.getText().trim());
+            monto = Integer.parseInt(txtBinValue1.getText().trim());
         } catch (NumberFormatException ex) {
-            showError(txtCoinValue, "Ingrése un monto válido");
+            showError(txtBinValue1, "Ingrese un monto válido");
             return;
         }
 
@@ -319,14 +314,14 @@ public class MainController implements Initializable {
             items.add(String.format("[%02d] %s", i + 1, pasos.get(i)));
         }
 
-        listCoinSteps.setItems(items);
+        listBinSteps1.setItems(items);
         int monedasCount = pasos.size();
         lblCoinsSummary.setText("Monto Total: " + monto + " | Monedas: " + monedasCount);
     }
 
     private void clearCoinChange() {
-        txtCoinValue.clear();
-        listCoinSteps.getItems().clear();
+        txtBinValue1.clear();
+        listBinSteps1.getItems().clear();
         lblCoinsSummary.setText("Monto Total: --- | Monedas: ---");
     }
 

@@ -13,16 +13,19 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1031.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1031.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
         <VBox prefHeight="95.0" prefWidth="828.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
             <children>
@@ -184,35 +187,126 @@
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Canvas fx:id="canvasCoin" height="277.0" styleClass="info-item" width="628.0" />
-                              <TableView fx:id="tableViewCoin" prefHeight="217.0" prefWidth="539.0">
-                                <columns>
-                                  <TableColumn fx:id="colMoneda" prefWidth="75.0" text="Moneda" />
-                                  <TableColumn fx:id="colCantidad" prefWidth="75.0" text="Cantidad" />
-                                    <TableColumn fx:id="colMonto" prefWidth="75.0" text="Monto" />
-                                    <TableColumn fx:id="colRestante" prefWidth="75.0" text="Restante" />
-                                </columns>
-                              </TableView>
+                              <HBox prefHeight="99.0" prefWidth="628.0" spacing="30.0">
+                                 <children>
+                                    <StackPane prefHeight="100.0" prefWidth="43.0">
+                                       <children>
+                                          <Circle fill="#ffee00" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡500" />
+                                          <StackPane prefHeight="40.0" prefWidth="60.0">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <Circle fill="#c67e11" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡100" />
+                                          <StackPane prefHeight="40.0" prefWidth="60.0">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <Circle fill="#c67e11" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡50" />
+                                          <StackPane prefHeight="40.0" prefWidth="60.0">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane prefHeight="40.0" prefWidth="60.0">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                          <Circle fill="#c67e11" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡25" />
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <Circle fill="#b3bfc9" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡10" />
+                                          <StackPane prefHeight="40.0" prefWidth="60.0">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <Circle fill="#b3bfc9" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡5" />
+                                          <StackPane prefHeight="40.0" prefWidth="60.0">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <Circle fill="#b3bfc9" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label text="₡1" />
+                                          <StackPane prefHeight="40.0" prefWidth="60.0" StackPane.alignment="BOTTOM_LEFT">
+                                             <children>
+                                                <Circle fill="RED" radius="12.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT" />
+                                                <Label prefHeight="17.0" prefWidth="17.0" text="x" StackPane.alignment="TOP_RIGHT" />
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="218.0" prefWidth="548.0">
+                                 <children>
+                                    <TableView prefHeight="217.0" prefWidth="539.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="Moneda" />
+                                        <TableColumn prefWidth="75.0" text="Cantidad" />
+                                          <TableColumn prefWidth="75.0" text="Monto" />
+                                          <TableColumn prefWidth="75.0" text="Restante" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                         <VBox prefHeight="565.0" prefWidth="470.0" spacing="10.0" styleClass="panel">
                            <children>
                               <Label styleClass="action-label" text="Parámetros" />
-                              <Slider fx:id="sliderCoinAmount" prefHeight="14.0" prefWidth="315.0" showTickLabels="true" />
+                              <Slider fx:id="sliderBinSize1" prefHeight="14.0" prefWidth="315.0" showTickLabels="true" />
                               <HBox prefHeight="32.0" prefWidth="481.0">
                                  <children>
                                     <Label prefHeight="18.0" prefWidth="110.0" styleClass="param-label" text="Monto en ₡ :" />
-                                    <TextField fx:id="txtCoinValue" prefHeight="28.0" prefWidth="213.0" />
+                                    <TextField fx:id="txtBinValue1" prefHeight="28.0" prefWidth="213.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="51.0" prefWidth="421.0" spacing="10.0">
                                  <children>
-                                    <Button fx:id="btnCoinChange" mnemonicParsing="false" styleClass="btn-primary" text="Cambio de monedas" />
-                                    <Button fx:id="btnCoinReset" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
+                                    <Button fx:id="btnBinGen1" mnemonicParsing="false" styleClass="btn-primary" text="Cambio de monedas" />
+                                    <Button fx:id="btnBinReset1" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
                                  </children>
                               </HBox>
                               <Label styleClass="section-label" text="Pasos de ejecución" />
-                              <ListView fx:id="listCoinSteps" prefHeight="200.0" prefWidth="200.0" styleClass="steps-list" />
+                              <ListView fx:id="listBinSteps1" prefHeight="200.0" prefWidth="200.0" styleClass="steps-list" />
                               <Label fx:id="lblCoinsSummary" styleClass="tab-label" text="Monto Total: --- | Monedas: ---" />
                               <VBox prefHeight="60.0" prefWidth="419.0" styleClass="chart-vertical-grid-lines">
                                  <children>
@@ -233,7 +327,27 @@
                         <SplitPane dividerPositions="0.4850230414746543" layoutX="-4.0" layoutY="-6.0" prefHeight="610.0" prefWidth="1043.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="609.0" prefWidth="586.0" />
+                            <AnchorPane fx:id="tab4x4" minHeight="0.0" minWidth="0.0" prefHeight="609.0" prefWidth="586.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" styleClass="param-label" text="Configuracion" />
+                                    <HBox layoutX="14.0" layoutY="48.0" prefHeight="26.0" prefWidth="498.0">
+                                       <children>
+                                          <ToggleButton mnemonicParsing="false" prefHeight="22.0" prefWidth="143.0" text="4x4" />
+                                          <ToggleButton fx:id="tab8x8" mnemonicParsing="false" prefHeight="22.0" prefWidth="137.0" text="8x8" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="14.0" layoutY="101.0" prefHeight="33.0" prefWidth="499.0">
+                                       <children>
+                                          <Label styleClass="param-label" text="Velocidad" />
+                                          <Label fx:id="lblVelocidad" text="..." />
+                                       </children>
+                                    </HBox>
+                                    <Slider fx:id="sliderVelocidad" layoutX="14.0" layoutY="141.0" prefHeight="14.0" prefWidth="510.0" />
+                                    <Button fx:id="btnResolve" layoutX="22.0" layoutY="175.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="124.0" styleClass="btn-primary" text="Resolver" />
+                                    <Button fx:id="btnAnimar" layoutX="165.0" layoutY="175.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="117.0" styleClass="btn-accent" text="Animar" />
+                                    <Button fx:id="btnStop" layoutX="22.0" layoutY="226.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="122.0" text="Detener" />
+                                    <Button fx:id="btnClean" layoutX="165.0" layoutY="225.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="122.0" styleClass="btn-ghost" text="Limpiar" />
+                                 </children></AnchorPane>
                           </items>
                         </SplitPane>
                      </children>
