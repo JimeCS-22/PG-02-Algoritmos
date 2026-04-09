@@ -5,8 +5,10 @@ import javafx.animation.Timeline;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -20,85 +22,91 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    @javafx.fxml.FXML
+    @FXML
     private TabPane mainTabs;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txtBinValue;
-    @javafx.fxml.FXML
+    @FXML
     private Canvas canvasBin;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnBinAnimate;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnBinGen;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBinSize;
-    @javafx.fxml.FXML
+    @FXML
     private Slider sliderBinSize;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBinArray;
-    @javafx.fxml.FXML
+    @FXML
     private ProgressBar progressBarBin;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnBinSearch;
-    @javafx.fxml.FXML
+    @FXML
     private ListView<String> listBinSteps;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBinResult;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBinTime;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBinComplex;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnBinReset;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBinComps;
 
     //TAB-2 MONEDAS
-    @javafx.fxml.FXML
+    @FXML
     private TextField txtCoinValue;
-    @javafx.fxml.FXML
+    @FXML
     private Slider sliderCoinAmount;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnCoinChange;
-    @javafx.fxml.FXML
+    @FXML
     private ListView<String> listCoinSteps;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnCoinReset;
-    @javafx.fxml.FXML
+    @FXML
     private Canvas canvasCoin;
-    @javafx.fxml.FXML
+    @FXML
     private TableView<Greedy.Coin> tableViewCoin;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn<Greedy.Coin, Integer> colMonto;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn<Greedy.Coin, Integer> colMoneda;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn<Greedy.Coin, Integer> colCantidad;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn<Greedy.Coin, Integer> colRestante;
 
     private static final int [] MONEDAS_CR = {500,100,50,25,10,5,1};
 
     //TAB 4 -MOCHILA
-    @javafx.fxml.FXML
+    @FXML
     private Canvas canvasKnapsack;
-    @javafx.fxml.FXML
+    @FXML
     private Slider sliderKnapsack;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnSolveKnapsack;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnResetKnapsack;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblCapKnapsack;
-    @javafx.fxml.FXML
-    private ListView listStepsKnapsack;
-    @javafx.fxml.FXML
+    @FXML
+    private ListView<String> listStepsKnapsack;
+    @FXML
     private Label lblWeightKnapsack;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblTotalValueKnapsack;
-    @javafx.fxml.FXML
+    @FXML
     private Label txtCapWValue;
-
+    @FXML
+    private ChoiceBox<String> cbPaquetes;
+    KnapsackPainter knapsackPainter;
+    @FXML
+    private Label lblValorOptimo;
+    @FXML
+    private Label lblTimeKnapsack;
 
     //TAB-1 BINARIA-ATRIBUTOS INTERNOS DEL CONTROLLER
     private final SearchEngine searchEngine = new SearchEngine();
@@ -106,38 +114,38 @@ public class MainController implements Initializable {
     private Timeline animation;
     private int[] binArray;
     private SearchResult binResult;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnClean;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblVelocidad;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnAnimar;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnResolve;
-    @javafx.fxml.FXML
+    @FXML
     private Button btnStop;
-    @javafx.fxml.FXML
+    @FXML
     private ToggleButton tab8x8;
-    @javafx.fxml.FXML
+    @FXML
     private Slider sliderVelocidad;
     private CoinPainter monedasCanvas;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblSolucion;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblBack;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblTime;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblConflictos;
-    @javafx.fxml.FXML
+    @FXML
     private Label lblCalls;
-    @javafx.fxml.FXML
+    @FXML
     private ListView ListSyeps;
-    @javafx.fxml.FXML
+    @FXML
     private ProgressBar progressBar;
-    @javafx.fxml.FXML
+    @FXML
     private ToggleButton tab4x4;
-    @javafx.fxml.FXML
+    @FXML
     private Canvas canvasTab;
     private ToggleGroup grupoTablero = new ToggleGroup();
     private List<NQueenProblem.Step> queenSteps;
@@ -149,6 +157,8 @@ public class MainController implements Initializable {
         setupBinTab();
         setupCoinsTab();
         setUpNQueensTab();
+        setupKnapsackTab();
+        knapsackPainter = new KnapsackPainter();
     }
 
     private void setupBinTab() {
@@ -388,7 +398,7 @@ public class MainController implements Initializable {
 
         // Se llama a greedy y se obtienen los pasos
         listCoinSteps.getItems().clear();
-        List<String> coinList = model.Greedy.coinChange2(monto);
+        List<String> coinList = Greedy.coinChange2(monto);
 
         ObservableList<String> items = FXCollections.observableArrayList();
         for (int i = 0; i < coinList.size(); i++) {
@@ -593,4 +603,70 @@ public class MainController implements Initializable {
         }
         return posiciones;
     }
+
+    //CONTROLLER TAB MOCHILA
+    private void setupKnapsackTab() {
+        configChoiceBox(cbPaquetes);//settear paquetes en choiceBox
+        configSlider(sliderKnapsack, 2, 30, 20, txtCapWValue);//settear slider
+        btnSolveKnapsack.setOnAction(e -> runKnapsack());
+        btnResetKnapsack.setOnAction(e -> resetKnapsack());
+    }
+
+    private void resetKnapsack() {
+        txtCapWValue.setText("0");
+        sliderKnapsack.setValue(2);
+        txtBinValue.setText("2");
+        listStepsKnapsack.setItems(null);
+        //RESUMEN MOCHILA
+        lblCapKnapsack.setText("kg");
+        lblTotalValueKnapsack.setText("");
+        lblWeightKnapsack.setText("kg");
+    }
+
+    private void runKnapsack() {
+        String paquete = cbPaquetes.getValue();
+        Item[] items = null;
+        int capacity = (int) sliderKnapsack.getValue();
+
+        if (!paquete.isEmpty()){
+            int index = cbPaquetes.getSelectionModel().getSelectedIndex();
+            switch (index) {
+                case 0:
+                    items = Item.Package1();
+                    break;
+                case 1:
+                    items = Item.Package2();
+                    break;
+                case 2:
+                    items = Item.Package3();
+                    break;
+                case 3:
+                    items = Item.Package4();
+                    break;
+            }
+        }
+        Greedy.KnapsackResult result = Greedy.knapsackSolve(items, capacity);
+        lblValorOptimo.setText(( result.getMaxValue())+"" );
+        lblTimeKnapsack.setText((result.getNanoTime())+" ms");
+       // listStepsKnapsack.setItems(result.selectedItems);
+        //Resumen mochila
+        lblCapKnapsack.setText( result.getCapacity() + " kg");
+        lblWeightKnapsack.setText( result.getMaxWeight()+ " kg");
+        lblTotalValueKnapsack.setText("₡ "+ result.getMaxValue());
+        //GraphicsContext gc = canvasKnapsack.getGraphicsContext2D();
+        knapsackPainter.dibujarMochila(canvasKnapsack,sliderKnapsack.getValue(),items);
+
+    }
+
+    private void configChoiceBox(ChoiceBox cbPaquetes) {
+        ObservableList<String> listPackages =  FXCollections.observableArrayList(
+                "Paquete No.1 (12 items)",
+                "Paquete No.2 (7 items)",
+                "Paquete No.3 (4 items)", // ajusta este número
+                "Paquete No.4 (4 items)"
+        );
+        cbPaquetes.setItems(listPackages);
+    }
+
+
 }

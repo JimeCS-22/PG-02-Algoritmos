@@ -90,6 +90,22 @@ public class Greedy {
             this.capacity = capacity;
             this.nanoTime = nanoTime;
         }
+
+        public double getMaxValue() {
+            return maxValue;
+        }
+
+        public double getMaxWeight() {
+            return maxWeight;
+        }
+
+        public int getCapacity() {
+            return capacity;
+        }
+
+        public long getNanoTime() {
+            return nanoTime;
+        }
     }
     //Este método recibe una lista de items(clase en model) y un número de capacidad
     public static KnapsackResult knapsackSolve(Item[] items, int capacity){//items viene desordenada
@@ -110,7 +126,7 @@ public class Greedy {
 
           if (item.getWeight() <= remainingCapacity) {
               //puede tomar el item y agregarlo en la mochila
-            selected.add(new Item(item.getName(), item.getWeight(), item.getValue(), Color.PINK));
+            selected.add(new Item(item.getName(), item.getWeight(), item.getValue(), item.getColor()));
             totalValue += item.getValue();
             totalWeight += item.getWeight();
             remainingCapacity -= item.getWeight();//resto el peso agregado

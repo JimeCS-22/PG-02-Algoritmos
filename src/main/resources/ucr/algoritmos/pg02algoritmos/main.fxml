@@ -315,12 +315,12 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="565.0" prefWidth="600.0">
                                             <children>
-                                                <Label layoutX="14.0" layoutY="45.0" prefHeight="14.0" prefWidth="357.0" text="Ordenar por ratio v/w -&gt; tomar ítem completo o fracción">
+                                                <Label layoutX="14.0" layoutY="28.0" prefHeight="14.0" prefWidth="357.0" text="Ordenar por ratio v/w -&gt; tomar ítem completo o fracción">
                                                     <font>
                                                         <Font size="11.0" />
                                                     </font>
                                                 </Label>
-                                                <VBox layoutX="284.0" layoutY="103.0" prefHeight="200.0" prefWidth="194.0">
+                                                <VBox layoutX="326.0" layoutY="102.0" prefHeight="200.0" prefWidth="194.0">
                                                     <children>
                                                         <Label prefHeight="14.0" prefWidth="113.0" styleClass="axis-label" text="Resumen Mochila:" />
                                                         <HBox prefHeight="26.0" prefWidth="194.0">
@@ -347,7 +347,7 @@
                                                         </HBox>
                                                     </children>
                                                 </VBox>
-                                                <Canvas fx:id="canvasKnapsack" height="368.0" layoutX="20.0" layoutY="97.0" width="246.0" />
+                                                <Canvas fx:id="canvasKnapsack" height="402.0" layoutX="20.0" layoutY="63.0" width="279.0" />
                                                 <HBox layoutX="12.0" prefHeight="21.0" prefWidth="576.0">
                                                     <children>
                                                         <Label prefHeight="18.0" prefWidth="319.0" styleClass="panel-title" text="Mochila Fraccional - Algoritmo Voraz ">
@@ -374,7 +374,7 @@
                                                                 <Font size="36.0" />
                                                             </font>
                                                         </Label>
-                                                        <ChoiceBox prefHeight="22.0" prefWidth="230.0" />
+                                                        <ChoiceBox fx:id="cbPaquetes" prefHeight="22.0" prefWidth="230.0" />
                                                     </children>
                                                 </HBox>
                                                 <Label layoutX="14.0" layoutY="63.0" prefHeight="18.0" prefWidth="76.0" styleClass="param-label" text="Cap W =">
@@ -396,7 +396,7 @@
                                                         <Font size="36.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="135.0" layoutY="200.0" prefHeight="18.0" prefWidth="131.0" styleClass="param-label" text="00">
+                                                <Label fx:id="lblValorOptimo" layoutX="135.0" layoutY="200.0" prefHeight="18.0" prefWidth="131.0" styleClass="param-label" text="00">
                                                     <font>
                                                         <Font size="36.0" />
                                                     </font>
@@ -404,7 +404,7 @@
                                                 <VBox layoutX="20.0" layoutY="234.0" prefHeight="49.0" prefWidth="361.0" styleClass="insight-note">
                                                     <children>
                                                         <Label prefHeight="14.0" prefWidth="186.0" styleClass="stat-label" text="TIEMPO DE EJECUCIÓN" />
-                                                        <Label prefHeight="18.0" prefWidth="113.0" styleClass="axis-label" text="ms">
+                                                        <Label fx:id="lblTimeKnapsack" prefHeight="18.0" prefWidth="113.0" styleClass="axis-label" text="ms">
                                                             <font>
                                                                 <Font size="36.0" />
                                                             </font>
