@@ -2,11 +2,13 @@ package controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.ArrayPainter;
@@ -307,6 +309,13 @@ public class MainController implements Initializable {
     //TAB-2 MONEDAS - METODOS
 
     private void setupCoinsTab() {
+        //Setteamos las columnas con los nombres de los atributos de la clase Greedy.Coin
+        //Greedy.Coin debe tener getters para que funcione
+        colMoneda.setCellValueFactory(new PropertyValueFactory<>("coin"));
+        colCantidad.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colMonto.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        colRestante.setCellValueFactory(new PropertyValueFactory<>("remaining"));
+
         sliderCoinAmount.setMin(500);
         sliderCoinAmount.setMax(5000);
         sliderCoinAmount.setValue(787);
