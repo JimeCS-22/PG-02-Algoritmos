@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Search {
@@ -68,4 +69,90 @@ public class Search {
     /**
      * Metodo de busqueda binaria Secuencial
      **/
+    public static int linearSearch(int[] array, int value) {
+        for (int i = 0; i < array.length; i++) {
+            steps.add("Comparar array[" + i + "]=" + array[i] + " con " + value);
+            if (array[i] == value) {
+                steps.add("Valor encontrado en el indice " + i);
+                return i;
+            }
+        }
+        steps.add("No se encontró el valor " + value);
+        return -1;
+    }
+
+    /**
+     * Metodo de busqueda binaria Secuencial con centinela
+     */
+    public static int sentinelLinearSearch(int[] array, int value) {
+        if (array.length == 0) {
+            steps.add("Arreglo vacío, No se encontró el valor " + value);
+            return -1;
+        }
+
+        int n = array.length;
+        int last = array[n - 1];
+
+        int[] copy = Arrays.copyOf(array, n + 1);
+        copy[n] = value; // centinela
+
+        int i = 0;
+        while (copy[i] != value) {
+            steps.add("Comparar array[" + i + "]=" + copy[i] + " con " + value);
+            i++;
+        }
+
+        // Si cayó en el centinela, no estaba
+        if (i == n) {
+            steps.add("No se encontró el valor " + value + " (se llegó al centinela)");
+            return -1;
+        }
+
+        steps.add("Valor encontrado en el indice " + i);
+        return i;
+    }
+
+    /**
+     * Metodo de búsqueda por Interpolación (arreglo ordenado)
+     */
+    public static int interpolationSearch(int[] sortedArray, int value) {
+        int low = 0;
+        int high = sortedArray.length - 1;
+
+        while (low <= high && value >= sortedArray[low] && value <= sortedArray[high]) {
+
+            if (sortedArray[high] == sortedArray[low]) {
+                steps.add("Rango [" + low + "," + high + "] tiene valores iguales: " + sortedArray[low]);
+                if (sortedArray[low] == value) {
+                    steps.add("Valor encontrado en el indice " + low);
+                    return low;
+                }
+                break;
+            }
+
+            // Fórmula de interpolación
+            int pos = low + (int) (((long)(high - low) * (value - sortedArray[low]))
+                    / (sortedArray[high] - sortedArray[low]));
+
+            steps.add("Rango [" + low + "," + high + "] -> pos=" + pos +
+                    " (A[low]=" + sortedArray[low] + ", A[high]=" + sortedArray[high] + ")");
+
+            if (pos < low || pos > high) {
+                steps.add("pos fuera del rango. Terminar.");
+                break;
+            }
+
+            if (sortedArray[pos] == value) {
+                steps.add("Valor encontrado en el indice " + pos);
+                return pos;
+            } else if (sortedArray[pos] < value) {
+                low = pos + 1;
+            } else {
+                high = pos - 1;
+            }
+        }
+
+        steps.add("No se encontró el valor " + value);
+        return -1;
+    }
 }

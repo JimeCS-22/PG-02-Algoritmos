@@ -167,6 +167,7 @@ public class MainController implements Initializable {
         btnBinGen.setOnAction(e -> generateBin());
         btnBinSearch.setOnAction(e -> runSearch(false));
         btnBinAnimate.setOnAction(e -> runSearch(true));
+        btnBinReset.setOnAction(e -> resetBinTab());
     }
 
     private void runSearch(boolean animate) {
@@ -354,6 +355,23 @@ public class MainController implements Initializable {
 
     }
 
+    private void resetBinTab() {
+        stopAnimation();
+        binArray = null;
+        binResult = null;
+
+        txtBinValue.clear();
+        listBinSteps.getItems().clear();
+
+        lblBinArray.setText("");
+        clearStats(lblBinResult, lblBinComps, lblBinTime, lblBinComplex);
+
+        progressBarBin.setProgress(0);
+
+        // Canvas vacío con texto
+        arrayPainter.paintEmpty(canvasBin, "Presione 'Generar Arreglo' para iniciar");
+    }
+
     //TAB-2 MONEDAS - METODOS
 
     private void setupCoinsTab() {
@@ -420,18 +438,6 @@ public class MainController implements Initializable {
             }
         }
 
-        // Table View
-        tableViewCoin.getItems().clear();
-        int remainingTable = monto;
-
-        for (int coin : MONEDAS_CR) {
-            int quantity = remainingTable / coin;
-            if (quantity > 0) {
-                remainingTable %= coin;
-                tableViewCoin.getItems().add(new Greedy.Coin(coin, quantity, quantity * coin, remainingTable));
-            }
-        }
-
         // Cantidades para el canvas
         int[] cantidades = new int[MONEDAS_CR.length];
         int remainingCanvas = monto;
@@ -450,6 +456,13 @@ public class MainController implements Initializable {
     private void clearCoinChange() {
         txtCoinValue.clear();
         listCoinSteps.getItems().clear();
+        tableViewCoin.getItems().clear();
+
+        // “vaciar” el canvas de monedas
+        if (monedasCanvas != null) {
+            monedasCanvas.setMonedas(new int[MONEDAS_CR.length]); // todo en 0
+            monedasCanvas.getGraphicsContext2D().clearRect(0, 0, monedasCanvas.getWidth(), monedasCanvas.getHeight());
+        }
     }
 
     //Tab-3 N-QUEENS
@@ -701,6 +714,7 @@ public class MainController implements Initializable {
                 "Paquete No.4 (4 items)"
         );
         cbPaquetes.setItems(listPackages);
+        cbPaquetes.getSelectionModel().selectFirst(); // selecciona Paquete 1 por defecto
     }
 
 
