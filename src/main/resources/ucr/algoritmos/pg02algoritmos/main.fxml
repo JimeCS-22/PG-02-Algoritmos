@@ -237,7 +237,7 @@
                                  <children>
                                     <Label layoutX="14.0" layoutY="21.0" prefHeight="18.0" prefWidth="537.0" styleClass="param-label" text="Tablero N-Reinas. Solución con la Técnica Backtracking(Búsquedas Exhaustivas)" />
                                      <Canvas fx:id="canvasTab" height="400.0" layoutX="73.0" layoutY="58.0" width="400.0" />
-                                    <ProgressBar fx:id="progressBar" layoutX="25.0" layoutY="474.0" prefHeight="18.0" prefWidth="574.0" progress="0.0" />
+                                    <ProgressBar fx:id="progressBar" layoutX="17.0" layoutY="536.0" prefHeight="18.0" prefWidth="574.0" progress="0.0" />
                                  </children></AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="609.0" prefWidth="586.0">
                                  <children>
@@ -254,7 +254,6 @@
                                           <Label fx:id="lblVelocidad" text="..." />
                                        </children>
                                     </HBox>
-                                    <Slider fx:id="sliderVelocidad" layoutX="14.0" layoutY="118.0" prefHeight="14.0" prefWidth="510.0" />
                                     <Button fx:id="btnResolve" layoutX="18.0" layoutY="144.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="124.0" styleClass="btn-primary" text="Resolver" />
                                     <Button fx:id="btnAnimar" layoutX="165.0" layoutY="144.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="117.0" styleClass="btn-accent" text="Animar" />
                                     <Button fx:id="btnStop" layoutX="19.0" layoutY="194.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="122.0" text="Detener" />
@@ -300,6 +299,16 @@
                                     </GridPane>
                                     <Label layoutX="13.0" layoutY="364.0" styleClass="param-label" text="Registro de Pasos (primero 200)" />
                                     <ListView fx:id="ListSyeps" layoutX="19.0" layoutY="382.0" prefHeight="82.0" prefWidth="364.0" styleClass="steps-list" />
+                                    <Slider fx:id="sliderVelocidad" layoutX="13.0" layoutY="110.0" prefHeight="14.0" prefWidth="391.0" />
+                                    <VBox layoutX="21.0" layoutY="483.0" prefHeight="72.0" prefWidth="369.0" styleClass="info-box">
+                                       <children>
+                                          <Label styleClass="info-title" text="Backtracking- N reinas" />
+                                          <Label styleClass="info-item" text="Colocar una reina por fila" />
+                                          <Label styleClass="info-item" text="Verificar columna + diagonal antess de avanzar" />
+                                          <Label styleClass="info-item" text="Si no cabe ninguna  -&gt; retrodecer(backtrack)" />
+                                          <Label styleClass="info-item" text="Pruning: 0(1) con sets de col/diag usuadas" />
+                                       </children>
+                                    </VBox>
                                  </children></AnchorPane>
                           </items>
                         </SplitPane>

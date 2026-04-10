@@ -471,7 +471,6 @@ public class MainController implements Initializable {
         tab4x4.setToggleGroup(grupoTablero);
         tab8x8.setToggleGroup(grupoTablero);
 
-        // Selección por defecto
         tab4x4.setSelected(true);
         dibujarTablero(4);
 
@@ -480,6 +479,45 @@ public class MainController implements Initializable {
 
         btnResolve.setOnAction(e -> resolverNQueens());
         btnAnimar.setOnAction(e -> animateQueens(getNSeleccionado()));
+
+        sliderVelocidad.setMin(1);   // Turbo
+        sliderVelocidad.setMax(5);   // Muy lento
+        sliderVelocidad.setValue(3); // Valor por defecto
+        sliderVelocidad.setMajorTickUnit(1);
+        sliderVelocidad.setShowTickLabels(true);
+        sliderVelocidad.setShowTickMarks(true);
+
+        sliderVelocidad.valueProperty().addListener((obs, oldVal, newVal) -> {
+            String[] etiquetas = {"Turbo", "Rápido", "Medio", "Lento", "Muy lento"};
+            int idx = newVal.intValue() - 1;
+            if (idx < 0) idx = 0; if (idx > 4) idx = 4;
+            lblVelocidad.setText(etiquetas[idx]);
+        });
+        lblVelocidad.setText("Medio");
+
+        btnStop.setOnAction(e -> {
+            if (queenAnimation != null) {
+                queenAnimation.stop();
+                queenAnimation = null;
+                progressBar.setProgress(0);
+            }
+        });
+
+        btnClean.setOnAction(e -> {
+            if (queenAnimation != null) {
+                queenAnimation.stop();
+                queenAnimation = null;
+            }
+            ListSyeps.getItems().clear();
+            int n = getNSeleccionado();
+            dibujarTablero(n);
+            lblSolucion.setText("...");
+            lblCalls.setText("...");
+            lblConflictos.setText("...");
+            lblBack.setText("...");
+            lblTime.setText("...");
+            progressBar.setProgress(0);
+        });
     }
 
     private void resolverNQueens() {
@@ -505,11 +543,9 @@ public class MainController implements Initializable {
 
         lblSolucion.setText("Solución encontrada");
 
-        // 👇 pintar tablero FINAL (sin colores de animación)
         NqueensCanvas painter = new NqueensCanvas();
         painter.paint(canvasTab, posiciones);
 
-        // 👇 llenar lista (opcional, pero útil)
         ObservableList<String> items = FXCollections.observableArrayList();
 
         for (int i = 0; i < queenSteps.size(); i++) {
@@ -527,6 +563,11 @@ public class MainController implements Initializable {
         }
 
         ListSyeps.setItems(items);
+
+        lblCalls.setText(String.valueOf(problem.llamadasRecursivas));
+        lblConflictos.setText(String.valueOf(problem.conflictos));
+        lblBack.setText(String.valueOf(problem.backtracks));
+        lblTime.setText(String.format("%.4f ms", problem.tiempoNano / 1_000_000.0));
     }
     private void dibujarTablero(int n){
 
@@ -563,8 +604,9 @@ public class MainController implements Initializable {
         int[][] board = new int[n][n];
 
         int total = queenSteps.size();
-        int delay = 200;
-
+        int velocidad = (int) sliderVelocidad.getValue();
+        int[] delays = {40, 120, 300, 600, 1200};
+        int delay = delays[velocidad - 1];
         queenAnimation = new Timeline();
 
         for (int i = 0; i < total; i++) {
@@ -576,7 +618,6 @@ public class MainController implements Initializable {
 
                         NQueenProblem.Step step = queenSteps.get(stepIndex);
 
-                        // ✔ lógica
                         if (step.tipo.equals("PLACE")) {
                             board[step.fila][step.col] = 1;
                         }
@@ -584,14 +625,11 @@ public class MainController implements Initializable {
                             board[step.fila][step.col] = 0;
                         }
 
-                        // 🎨 pintar con colores
                         NqueensCanvas painter = new NqueensCanvas();
                         painter.paint(canvasTab, convertirBoard(board), step);
 
-                        // progreso
                         progressBar.setProgress((double) (stepIndex + 1) / total);
 
-                        // lista
                         ListSyeps.scrollTo(stepIndex);
                         ListSyeps.getSelectionModel().select(stepIndex);
                     })
