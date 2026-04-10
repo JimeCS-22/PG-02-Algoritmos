@@ -487,10 +487,13 @@ public class MainController implements Initializable {
         sliderVelocidad.setShowTickLabels(true);
         sliderVelocidad.setShowTickMarks(true);
 
+        String[] etiquetas = {"Muy lento", "Lento", "Medio", "Rápido", "Turbo"};
+        int[] delays = {1200, 600, 300, 120, 40};
+
         sliderVelocidad.valueProperty().addListener((obs, oldVal, newVal) -> {
-            String[] etiquetas = {"Turbo", "Rápido", "Medio", "Lento", "Muy lento"};
             int idx = newVal.intValue() - 1;
-            if (idx < 0) idx = 0; if (idx > 4) idx = 4;
+            if (idx < 0) idx = 0;
+            if (idx > 4) idx = 4;
             lblVelocidad.setText(etiquetas[idx]);
         });
         lblVelocidad.setText("Medio");
@@ -536,12 +539,12 @@ public class MainController implements Initializable {
 
         queenSteps = problem.steps;
 
+        int numSoluciones = problem.contarSoluciones(n);
+        lblSolucion.setText(numSoluciones + " soluciones");
+
         if (posiciones == null) {
-            lblSolucion.setText("0 soluciones");
             return;
         }
-
-        lblSolucion.setText("Solución encontrada");
 
         NqueensCanvas painter = new NqueensCanvas();
         painter.paint(canvasTab, posiciones);
@@ -604,8 +607,9 @@ public class MainController implements Initializable {
         int[][] board = new int[n][n];
 
         int total = queenSteps.size();
+
         int velocidad = (int) sliderVelocidad.getValue();
-        int[] delays = {40, 120, 300, 600, 1200};
+        int[] delays = {1200, 600, 300, 120, 40};
         int delay = delays[velocidad - 1];
         queenAnimation = new Timeline();
 

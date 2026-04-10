@@ -73,17 +73,31 @@ public class NQueenProblem {
         return null;
     }
 
-    public List<Step> solveWithSteps(int n) {
-        steps.clear();
+    // Cuenta soluciones usando backtracking
+    public int contarSoluciones(int n) {
+        return contar(0, new int[n], n);
+    }
 
-        int[][] board = new int[n][n];
+    private int contar(int col, int[] posiciones, int n) {
+        if (col == n)
+            return 1;
+        int total = 0;
+        for (int row = 0; row < n; row++) {
+            if (esSeguro(posiciones, col, row)) {
+                posiciones[col] = row;
+                total += contar(col + 1, posiciones, n);
+            }
+        }
+        return total;
+    }
 
-        Random rand = new Random();
-        int startCol = rand.nextInt(n);
-
-        placeQueens(board, startCol);
-
-        return steps;
+    private boolean esSeguro(int[] posiciones, int col, int row) {
+        for (int prevCol = 0; prevCol < col; prevCol++) {
+            int prevRow = posiciones[prevCol];
+            if (prevRow == row) return false;
+            if (Math.abs(prevRow - row) == Math.abs(prevCol - col)) return false;
+        }
+        return true;
     }
 
 
